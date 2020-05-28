@@ -1,7 +1,11 @@
 <header>
-    <nav>
-        {% for link in nav %}
-            <a href="{{ link.url }}">{{ link.name }}</a>
-        {% endfor %}     
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            {% for link in nav %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ link.url }}">{{ link.name }}</a>
+            </li>
+            {% endfor %}     
+        </ul>
    </nav>
  </header>
