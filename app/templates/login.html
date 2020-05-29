@@ -1,18 +1,23 @@
 {% extends 'layout.html' %}
 
 {% block content %} 
-<h1>Sign In</h1>
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.username.label }}<br>
-        {{ form.username(size=32) }}
-    </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password(size=32) }}
-    </p>
-    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-    <p>{{ form.submit() }}</p>
-</form>
+<div class="container-sm">
+    <div class="row">
+        <div class="col"></div>        
+        <div class="col border">
+            <div>First time here? 
+                <a href="/register">Create an Account</a>
+            </div>
+            <div class="border bg-dark text-white text-center"><h1>Sign In</h1></div>
+            <form action="/login" method="POST" novalidate>
+                {{ form.hidden_tag() }}        
+                        <div>{{ form.username.label }} {{ form.username(size=32) }}</div>                
+                        <div>{{ form.password.label }} {{ form.password(size=32) }}</div>        
+                    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+                    <div class="text-center pb-10">{{ form.submit() }}</div>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
 {% endblock %}
