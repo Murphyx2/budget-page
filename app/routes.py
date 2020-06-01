@@ -1,6 +1,8 @@
+from app import app
 from flask import render_template, flash, redirect, url_for, make_response
 from app.forms import LoginForm, ContactForm
-from app import app
+from app.models import Users
+
 
 
 nav = [{'name':'Home', 'url':'/home'},  
@@ -12,7 +14,8 @@ nav = [{'name':'Home', 'url':'/home'},
 
 @app.route('/')
 @app.route('/home')
-def index():
+def index():    
+    testing = Users(email='brauliojose1@gmail.com', password_hash='hola123').save()
     return render_template('home.html', title='Home', description="Budget page index", nav = nav)
 
 

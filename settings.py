@@ -15,4 +15,7 @@ load_dotenv(dotenv_path=env_path)
 #Settings for Config
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-    MONGO_URI = "mongodb://127.0.0.1:27017/budget-page"
+    MONGODB_SETTINGS = {
+        'db':'budget-page',
+        'host':'mongodb://127.0.0.1:27017/budget-page'
+    }

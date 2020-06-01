@@ -1,6 +1,6 @@
 from flask import Flask
 from settings import Config
-from flask_pymongo import PyMongo
+from flask_mongoengine import MongoEngine
 
 #from flask_sqlalchemy import SQLAlchemy
 #from flask_migrate import Migrate
@@ -8,7 +8,7 @@ from flask_pymongo import PyMongo
 
 app = Flask(__name__, static_folder="static")
 app.config.from_object(Config)
-mongo = PyMongo(app)
+db = MongoEngine(app)
 
 
 from app import routes
