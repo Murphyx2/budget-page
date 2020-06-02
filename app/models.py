@@ -1,11 +1,39 @@
 from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
+from app import login
+from flask_login import UserMixin
 
-class Users(db.Document):    
+
+class Users(UserMixin, db.Document):    
     first_name = db.StringField(max_length=50)
     last_name = db.StringField(max_length=50)
+    username = db.StringField(max_length=50)
     email = db.EmailField(required=True)    
-    password_hash = db.StringField(required=True, max_length=50)
+    password_hash = db.StringField(required=True, max_length=300)
 
+
+    def __repr__(self):
+        return self.username
+
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+    @login.user_loader
+    def load_user(self, id):
+        return self.objects(_id=id)
+
+
+
+class Accounts(db.Document):
+    name = db.StringField(max_length=200)
+    plan_level = db.StringField(max_length=50)
+            
 
 class Memberships(db.Document):
     related_user_id = db.StringField(max_length=200)
@@ -15,9 +43,5 @@ class Memberships(db.Document):
     account_phone_number= db.StringField(max_length=20)
 
 
-class Accounts(db.Document):
-    name = db.StringField(max_length=200)
-    plan_level = db.StringField(max_length=50)
-            
 
 

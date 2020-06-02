@@ -1,8 +1,9 @@
 from app import app
-from flask import render_template, flash, redirect, url_for, make_response
 from app.forms import LoginForm, ContactForm
 from app.models import Users
-
+from app import db
+from flask import render_template, flash, redirect, url_for, make_response
+from flask_login import current_user, login_user
 
 
 nav = [{'name':'Home', 'url':'/home'},  
@@ -14,15 +15,23 @@ nav = [{'name':'Home', 'url':'/home'},
 
 @app.route('/')
 @app.route('/home')
-def index():    
-    testing = Users(email='brauliojose1@gmail.com', password_hash='hola123').save()
+def index():
+    user = Users(first_name='Jose', email='brauliojose2@gmail.com', username='murphyx22')        
+    user.set_password('hola')
+    user.save()
+    #user = Users.objects(username='murphyx2')
+    #print(user.check_password('hola'))
     return render_template('home.html', title='Home', description="Budget page index", nav = nav)
 
 
 @app.route('/login', methods=['GET','POST'])
-def login():
+def login():        
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    
     form = LoginForm()
     if form.validate_on_submit():
+        user = Users.objects(username=form.username.data)
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
         return redirect(url_for('home'))
