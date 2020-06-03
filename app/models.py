@@ -4,7 +4,8 @@ from app import login
 from flask_login import UserMixin
 
 
-class Users(UserMixin, db.Document):    
+class Users(UserMixin, db.Document):
+    #id = db.ObjectIdField()    
     first_name = db.StringField(max_length=50)
     last_name = db.StringField(max_length=50)
     username = db.StringField(max_length=50)
@@ -24,9 +25,18 @@ class Users(UserMixin, db.Document):
         return check_password_hash(self.password_hash, password)
 
 
+    def get_id(self):
+        return unicode(self._id)
+
+
+#    @queryset_manager
+#    def get_password_hash(doc_cls, queryset):
+#        return queryset.
+
+
     @login.user_loader
-    def load_user(self, id):
-        return self.objects(_id=id)
+    def load_user(user_id):
+        return Users.objects(id=user_id).first()
 
 
 
