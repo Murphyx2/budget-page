@@ -5,7 +5,12 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ link.url }}">{{ link.name }}</a>
             </li>
-            {% endfor %}     
+            {% endfor %}                 
         </ul>
+            {% if current_user.is_anonymous %}
+                <a class="" href={{ url_for('login') }}>Login</a>
+            {% else %}
+                <a class="" href={{ url_for('logout') }}>Logout</a>
+            {% endif %}
    </nav>
  </header>

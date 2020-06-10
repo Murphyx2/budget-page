@@ -3,24 +3,22 @@ from app.forms import LoginForm, ContactForm
 from app.models import Users
 from app import db
 from flask import render_template, flash, redirect, url_for, make_response
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user, login_required
 
 
 nav = [{'name':'Home', 'url':'/home'},  
         {'name':'Transactions','url':'/transactions'},
         {'name':'Budget','url':'/budget'},
-        {'name':'About','url':'/about'},        
-        {'name':'Sign in','url':'/login'},
+        {'name':'About','url':'/about'},                
         ]
+
+signin = {'name':'Sign in','url':'/login'}
+logout = {'name':'Logout','url':'/logout'}
 
 @app.route('/')
 @app.route('/home')
-def index():
-    #user = Users(first_name='Jose', email='brauliojose2@gmail.com', username='murphyx22')        
-    #user.set_password('hola')
-    #user.save()
-    user = Users.objects(username='murphyx2').first()       
-    return render_template('home.html', title='Home', description="Budget page index", nav = nav)
+def index():    
+    return render_template('home.html', title='Home', description="Budget page index", nav = nav, user=None)
 
 
 @app.route('/login', methods=['GET','POST'])
@@ -40,6 +38,7 @@ def login():
 
 
 @app.route('/about', methods=['GET','POST'])
+@login_required
 def about():
     form = ContactForm()
     if form.validate_on_submit():
@@ -73,3 +72,9 @@ def under_construction():
 def not_found(*args):
     """Page not found."""
     return make_response(render_template("404.html"), 404)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))

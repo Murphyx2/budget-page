@@ -6,11 +6,12 @@ from flask_login import UserMixin
 
 class Users(UserMixin, db.Document):
     #id = db.ObjectIdField()    
-    first_name = db.StringField(max_length=50)
-    last_name = db.StringField(max_length=50)
-    username = db.StringField(max_length=50)
+    first_name = db.StringField(max_length=80)
+    last_name = db.StringField(max_length=80)
+    username = db.StringField(max_length=30)
     email = db.EmailField(required=True)    
     password_hash = db.StringField(required=True, max_length=300)
+    profile_picture_path=db.StringField(required=True, max_length=300)
 
 
     def __repr__(self):
@@ -25,8 +26,8 @@ class Users(UserMixin, db.Document):
         return check_password_hash(self.password_hash, password)
 
 
-    def get_id(self):
-        return unicode(self._id)
+#    def get_id(self):
+#        return unicode(self._id)
 
 
 #    @queryset_manager
