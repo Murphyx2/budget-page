@@ -30,11 +30,6 @@ class Users(UserMixin, db.Document):
 #        return unicode(self._id)
 
 
-#    @queryset_manager
-#    def get_password_hash(doc_cls, queryset):
-#        return queryset.
-
-
     @login.user_loader
     def load_user(user_id):
         return Users.objects(id=user_id).first()

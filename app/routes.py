@@ -2,7 +2,7 @@ from app import app
 from app.forms import LoginForm, ContactForm
 from app.models import Users
 from app import db
-from flask import render_template, flash, redirect, url_for, make_response
+from flask import render_template, flash, redirect, url_for, make_response, flash
 from flask_login import current_user, login_user, logout_user, login_required
 
 
@@ -17,7 +17,7 @@ logout = {'name':'Logout','url':'/logout'}
 
 @app.route('/')
 @app.route('/home')
-def index():    
+def index():             
     return render_template('home.html', title='Home', description="Budget page index", nav = nav, user=None)
 
 
@@ -28,11 +28,13 @@ def login():
     
     form = LoginForm()
     if form.validate_on_submit():
-        user = Users.objects(username=form.username.data).first()
+        user = Users.objects(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid Username or password')
             return redirect(url_for('login'))                    
         login_user(user, remember=form.remember_me.data)
+        flash('Wellcome {name} {lastname}'.format(name=current_user.first_name, lastname=current_user.last_name))
+        
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign in or Register', form=form, nav = nav)
 
