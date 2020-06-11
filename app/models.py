@@ -8,7 +8,7 @@ class Users(UserMixin, db.Document):
     #id = db.ObjectIdField()    
     first_name = db.StringField(max_length=80)
     last_name = db.StringField(max_length=80)
-    username = db.StringField(max_length=30)
+    #username = db.StringField(max_length=30)
     email = db.EmailField(required=True)    
     password_hash = db.StringField(required=True, max_length=300)
     profile_picture_path=db.StringField(required=True, max_length=300)
