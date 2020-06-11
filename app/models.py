@@ -15,7 +15,7 @@ class Users(UserMixin, db.Document):
 
 
     def __repr__(self):
-        return self.username
+        return self.email
 
 
     def set_password(self, password):
