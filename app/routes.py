@@ -1,8 +1,8 @@
 from app import app
-from app.forms import LoginForm, ContactForm
-from app.models import Users
+from app.forms import LoginForm, ContactForm, createBugdetForm
+from app.models import Users, Budgets,Budget_Item, Income_Expense
 from app import db
-from flask import render_template, flash, redirect, url_for, make_response, flash
+from flask import render_template, flash, redirect, url_for, make_response, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 
 
@@ -40,7 +40,6 @@ def login():
 
 
 @app.route('/about', methods=['GET','POST'])
-@login_required
 def about():
     form = ContactForm()
     if form.validate_on_submit():
@@ -49,9 +48,21 @@ def about():
 
 
 @app.route('/budget', methods=['GET','POST'])
-def budget():
-    return redirect(url_for('under_construction'))
-    #return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav)
+@login_required
+def budget():    
+    form = createBugdetForm()
+    if request.method == 'POST':        
+        budget = Budgets()
+        budget.user_id = current_user.get_id()
+        budget.title = form.title.data
+        budget.description = form.description.data        
+        budget.save()
+        redirect(url_for('budget',make_response='GET'))
+    else:        
+        budgets = Budgets.objects(user_id=current_user.get_id())                
+        for budget in budgets:
+            print(budget.title)                
+    return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form)
 
 
 @app.route('/register',methods=['GET','POST'])

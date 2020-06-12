@@ -20,3 +20,11 @@ class ContactForm(FlaskForm):
     recaptcha = RecaptchaField()
     submit = SubmitField('Submit')
 
+
+class createBugdetForm(FlaskForm):        
+    title = StringField('Title',validators=[DataRequired()])
+    description = TextField('Description')
+    submit = SubmitField('Submit')
+
+#class updateBudgetForm(FlaskForm):
+

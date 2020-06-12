@@ -4,11 +4,9 @@ from app import login
 from flask_login import UserMixin
 
 
-class Users(UserMixin, db.Document):
-    #id = db.ObjectIdField()    
+class Users(UserMixin, db.Document):    
     first_name = db.StringField(max_length=80)
-    last_name = db.StringField(max_length=80)
-    #username = db.StringField(max_length=30)
+    last_name = db.StringField(max_length=80)    
     email = db.EmailField(required=True)    
     password_hash = db.StringField(required=True, max_length=300)
     profile_picture_path=db.StringField(required=True, max_length=300)
@@ -26,27 +24,57 @@ class Users(UserMixin, db.Document):
         return check_password_hash(self.password_hash, password)
 
 
-#    def get_id(self):
-#        return unicode(self._id)
-
-
     @login.user_loader
     def load_user(user_id):
         return Users.objects(id=user_id).first()
 
 
+class Income_Expense(db.EmbeddedDocument):
+    name = db.StringField(max_length=30)
+    actual_amount = db.DecimalField()
+    planned_amount = db.DecimalField() 
 
-class Accounts(db.Document):
-    name = db.StringField(max_length=200)
-    plan_level = db.StringField(max_length=50)
-            
 
-class Memberships(db.Document):
-    related_user_id = db.StringField(max_length=200)
-    related_account_id = db.StringField(max_length=200)
-    related_role_id = db.StringField(max_length=200)
-    account_email_address = db.StringField(max_length=200)
-    account_phone_number= db.StringField(max_length=20)
+    def set_values(self, name, actual_amount, planned_amount):
+        self.name = name
+        self.actual_amount = actual_amount
+        self.planned_amount = planned_amount
+
+
+
+class Budget_Item(db.EmbeddedDocument):
+    income = db.ListField(db.EmbeddedDocumentField(Income_Expense))
+    expense = db.ListField(db.EmbeddedDocumentField(Income_Expense))
+
+
+    def set_income(self, income):
+        self.income.append(income)
+
+
+    def set_expense(self, expense):
+        self.expense.append(expense)
+
+
+class Budgets(db.Document):    
+    user_id = db.StringField(max_length=100)
+    title = db.StringField(max_length=100)
+    description = db.StringField(max_length=300)
+    budget_items = db.EmbeddedDocumentField(Budget_Item)
+
+
+    def set_user_id(self, user_id):
+        self.user_id = user_id
+    
+
+    def set_title(self, title):
+        self.title = title
+    
+
+    def set_budget_items(self, budget_items):
+        self.budget_items = budget_items
+
+
+
 
 
 
