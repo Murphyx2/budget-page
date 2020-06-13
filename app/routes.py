@@ -3,7 +3,7 @@ from app.forms import LoginForm, ContactForm, createBugdetForm
 from app.models import Users, Budgets,Budget_Item, Income_Expense
 from app import db
 from flask import render_template, flash, redirect, url_for, make_response, flash, request
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_user, logout_user, login_required, LoginManager
 
 
 nav = [{'name':'Home', 'url':'/home'},  
@@ -91,3 +91,5 @@ def not_found(*args):
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
