@@ -19,5 +19,5 @@ from app import routes
 #Session timeout control
 @app.before_request
 def before_request():
-   session.permanent = False
+   session.permanent = True
    app.permanent_session_lifetime = timedelta(minutes=30)

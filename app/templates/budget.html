@@ -1,11 +1,55 @@
 {% extends 'layout.html' %}
 {% block content %}
-<div class="formwrapper">
-    <h2 class="title">{{ title }}</h2>
-    <form method="POST" action="/budget">
-        <div class="form-field">{{ form.title.label }} {{ form.title(size=30) }}</div>        
-        <div class="form-field">{{ form.description.label }} {{ form.description(size=100) }}</div>
-        {{ form.submit }}
-    </form>
+
+<div class="modal fade" id="newBudget" tabindex="-1" role="dialog" aria-labelledby="newBudgetLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newBudgetLabel">Create New</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cancel"></button>
+        <span aria-hidden="true">&times;</span>
+      </div>
+        <div class="modal-body">
+          <h2 class="title">{{ title }}</h2>
+          <form method="POST" action="/budget">
+            <div class="form-group">
+              {{ form.title.label }}{{ form.title(size=30) }}
+            </div>
+            <div class="form-group">{{ form.description.label }} {{ form.description(size=100) }}</div>
+            <div>{{ form.submit(class_='btn btn-primary') }}</div>
+            <div>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+            <div>              
+            </div>
+          </form>
+        </div>      
+    </div>
   </div>
+</div>
+
+<div>
+  <h2>Previous Budgets</h2>
+  <li>
+    {% for budget in budgets  %}
+    <ul>{{ budget.title }}</ul>
+    {% endfor %}
+  </li>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newBudget" data-title="Budget">New Budget</button>
+</div>
+
+<script>
+$('#newBudget').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('title') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('Create new' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+
+</script>
+  
 {% endblock %}

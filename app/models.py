@@ -59,6 +59,7 @@ class Budgets(db.Document):
     user_id = db.StringField(max_length=100)
     title = db.StringField(max_length=100)
     description = db.StringField(max_length=300)
+    date_created= db.DateTimeField()
     budget_items = db.EmbeddedDocumentField(Budget_Item)
 
 

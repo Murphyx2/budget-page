@@ -4,6 +4,7 @@ from app.models import Users, Budgets,Budget_Item, Income_Expense
 from app import db
 from flask import render_template, flash, redirect, url_for, make_response, flash, request
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
+from datetime import datetime
 
 
 nav = [{'name':'Home', 'url':'/home'},  
@@ -55,14 +56,14 @@ def budget():
         budget = Budgets()
         budget.user_id = current_user.get_id()
         budget.title = form.title.data
-        budget.description = form.description.data        
+        budget.description = form.description.data  
+        budget.date_created = datetime.utcnow()      
         budget.save()
         redirect(url_for('budget',make_response='GET'))
+        budgets = Budgets.objects(user_id=current_user.get_id())         
     else:        
-        budgets = Budgets.objects(user_id=current_user.get_id())                
-        for budget in budgets:
-            print(budget.title)                
-    return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form)
+        budgets = Budgets.objects(user_id=current_user.get_id())                        
+    return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgets)
 
 
 @app.route('/register',methods=['GET','POST'])
