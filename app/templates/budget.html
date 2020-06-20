@@ -16,15 +16,19 @@
             <div class="form-group">
               {{ form.title.label }}{{ form.title(size=30) }}
             </div>
-            <div class="form-group">{{ form.description.label }} {{ form.description(size=100) }}</div>
-            <div>{{ form.submit(class_='btn btn-primary') }}</div>
-            <div>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            </div>
+            <div >{{ form.description.label }} </div>
+            <div >{{ form.description(class_="form-group" )}}</div>
+            <div class="modal-footer">
+              <div class='col text-right'>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                {{ form.submit(class_='btn btn-primary') }}
+              </div> 
             <div>              
             </div>
           </form>
-        </div>      
+        </div> 
+
+        </div>     
     </div>
   </div>
 </div>
@@ -38,18 +42,5 @@
   </li>
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newBudget" data-title="Budget">New Budget</button>
 </div>
-
-<script>
-$('#newBudget').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('title') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('.modal-title').text('Create new' + recipient)
-  modal.find('.modal-body input').val(recipient)
-})
-
-</script>
-  
+<script type='text/javascript' src='../static/js/budget.js'></script>
 {% endblock %}

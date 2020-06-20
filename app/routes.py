@@ -58,9 +58,9 @@ def budget():
         budget.title = form.title.data
         budget.description = form.description.data  
         budget.date_created = datetime.utcnow()      
-        budget.save()
+        budget.save()                     
+        budgets = Budgets.objects(user_id=current_user.get_id())  
         redirect(url_for('budget',make_response='GET'))
-        budgets = Budgets.objects(user_id=current_user.get_id())         
     else:        
         budgets = Budgets.objects(user_id=current_user.get_id())                        
     return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgets)
