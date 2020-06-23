@@ -1,37 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-<div class="modal fade" id="newBudget" tabindex="-1" role="dialog" aria-labelledby="newBudgetLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="newBudgetLabel">Create New</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cancel"></button>
-        <span aria-hidden="true">&times;</span>
-      </div>
-        <div class="modal-body">
-          <h2 class="title">{{ title }}</h2>
-          <form method="POST" action="/budget">
-            <div class="form-group">
-              {{ form.title.label }}{{ form.title(size=30) }}
-            </div>
-            <div >{{ form.description.label }} </div>
-            <div >{{ form.description(class_="form-group" )}}</div>
-            <div class="modal-footer">
-              <div class='col text-right'>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                {{ form.submit(class_='btn btn-primary') }}
-              </div> 
-            <div>              
-            </div>
-          </form>
-        </div> 
-
-        </div>     
-    </div>
-  </div>
-</div>
+{% include 'create_budget_modal.html' %}
 
 <div>
   <h2>Previous Budgets</h2>
@@ -40,7 +10,9 @@
     <ul>{{ budget.title }}</ul>
     {% endfor %}
   </li>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newBudget" data-title="Budget">New Budget</button>
+  <button type="button" class="btn btn-primary" data-toggle="modal"  aria-pressed="true" data-target="#newBudget" data-title="Budget">
+    New Budget
+  </button>
 </div>
 <script type='text/javascript' src='../static/js/budget.js'></script>
 {% endblock %}

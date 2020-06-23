@@ -52,18 +52,22 @@ def about():
 @login_required
 def budget():    
     form = createBugdetForm()
+    budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')  
     if request.method == 'POST':        
         budget = Budgets()
         budget.user_id = current_user.get_id()
         budget.title = form.title.data
         budget.description = form.description.data  
         budget.date_created = datetime.utcnow()      
-        budget.save()                     
-        budgets = Budgets.objects(user_id=current_user.get_id())  
-        redirect(url_for('budget',make_response='GET'))
-    else:        
-        budgets = Budgets.objects(user_id=current_user.get_id())                        
+        budget.save()                             
+        redirect(url_for('budget',make_response='GET'))                                  
     return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgets)
+
+@app.route('/budget/<budget_id>', methods=['GET','POST'])
+@login_required
+def check_budget(budget_id):
+    flash('Budget requested does not exists {0}'.format(budget_id))
+    return redirect(url_for('under_construction'))
 
 
 @app.route('/register',methods=['GET','POST'])

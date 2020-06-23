@@ -24,7 +24,7 @@ class ContactForm(FlaskForm):
 class createBugdetForm(FlaskForm):        
     title = StringField('Title',validators=[DataRequired()])
     description = TextAreaField('Description', validators=[optional(), length(max=200)])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Create')
 
 #class updateBudgetForm(FlaskForm):
 

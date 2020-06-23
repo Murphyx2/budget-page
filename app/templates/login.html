@@ -9,12 +9,12 @@
                 <a href="/register">Create an Account</a>
             </div>
             <div class="border bg-dark text-white text-center"><h1>Sign In</h1></div>
-            <form action="/login" method="POST" novalidate>
+            <form class="form-group" action="/login" method="POST" novalidate>
                 {{ form.hidden_tag() }}        
-                        <div>{{ form.email.label }} {{ form.email(size=32) }}</div>                
-                        <div>{{ form.password.label }} {{ form.password(size=32) }}</div>        
+                        <div>{{ form.email.label}} {{ form.email(class_="form-control", size=32) }}</div>                
+                        <div>{{ form.password.label }} {{ form.password(class_="form-control", size=32) }}</div>        
                     <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-                    <div class="text-center pb-10">{{ form.submit() }}</div>
+                    <div class="text-center pb-10">{{ form.submit(class_="btn btn-primary") }}</div>
             </form>
         </div>
         <div class="col"></div>
