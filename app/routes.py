@@ -66,11 +66,13 @@ def budget():
 @app.route('/budget/<budget_id>', methods=['GET'])
 @login_required
 def check_budget(budget_id):
-    if request.method == 'GET':
-        flash('Budget requested does not exists {0}'.format(budget_id))
-        budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id)
-        flask('budget id {0}'.format(budget.id))        
-    return redirect(url_for('under_construction'))
+    budget = None    
+    if request.method == 'GET':                
+        budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()        
+        for bud in budget:
+            print(budget[bud])
+        
+    return render_template('unique_budget.html', title=budget.title, description=budget.description , nav=nav, budget=budget)
 
 
 @app.route('/register',methods=['GET','POST'])

@@ -4,12 +4,21 @@
 {% include 'create_budget_modal.html' %}
 
 <div>
-  <h2>Previous Budgets</h2>
-  <li>
-    {% for budget in budgets  %}
-    <ul>{{ budget.title }}</ul>
-    {% endfor %}
-  </li>
+  <h2>My Budgets</h2>  
+    {% for budget in budgets  %}    
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          {{ budget.title }}
+        </div>
+        <div class="card-body">
+
+        </div>
+        <div class="card-footer">
+
+        </div>
+      </div>    
+      <br>
+    {% endfor %}  
   <button type="button" class="btn btn-primary" data-toggle="modal"  aria-pressed="true" data-target="#newBudget" data-title="Budget">
     New Budget
   </button>

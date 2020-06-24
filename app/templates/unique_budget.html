@@ -1,4 +1,20 @@
 {% extends 'layout.html' %}
 {% block content %}
 
+<div class="card">
+    <div class="card-header">
+        <h4><strong>{{ budget.title }}</strong></h4>
+        <div> 
+            <h6>Description</h6>
+            <p> {{ budget.description }} </p>
+        </div>
+        <div>
+                <label>Date Created</label>
+                <h6> {{ budget.date_created }} </h6>
+        </div>
+    </div>
+    <div class="card-body">
+    </div>
+</div>
+
 {% endblock %}
