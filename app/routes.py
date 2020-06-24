@@ -63,10 +63,13 @@ def budget():
         redirect(url_for('budget',make_response='GET'))                                  
     return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgets)
 
-@app.route('/budget/<budget_id>', methods=['GET','POST'])
+@app.route('/budget/<budget_id>', methods=['GET'])
 @login_required
 def check_budget(budget_id):
-    flash('Budget requested does not exists {0}'.format(budget_id))
+    if request.method == 'GET':
+        flash('Budget requested does not exists {0}'.format(budget_id))
+        budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id)
+        flask('budget id {0}'.format(budget.id))        
     return redirect(url_for('under_construction'))
 
 
