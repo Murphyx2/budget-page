@@ -2,26 +2,38 @@
 {% block content %}
 
 {% include 'create_budget_modal.html' %}
-
+<link rel="stylesheet" type="text/css" href="../static/css/budget.css">
 <div>
-  <h2>My Budgets</h2>  
-    {% for budget in budgets  %}    
-      <div class="card" style="width: 18rem;">
-        <div class="card-header">
-          {{ budget.title }}
-        </div>
-        <div class="card-body">
+  <h2 class="top-padding">My Budgets</h2>     
+  <span class="budget-button-padding">
+    <button type="button" class="btn btn-primary" data-toggle="modal" aria-pressed="true" data-target="#newBudget" data-title="Budget">
+      New Budget
+    </button>   
+  </span>
 
+  <div class="d-flex flex-row">
+    <span class="budget-element-space"></span>    
+    {% for budget in budgets  %}
+    <div class="card" style="width: 20rem;">
+      <div class="card-header">
+        <div class="d-inline-flex">{{ budget.title}}</div>
+        <div class="dropdown d-inline-flex float-right">
+          <button class="btn btn-secundary dropdown-toggle " type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+          </div>
         </div>
-        <div class="card-footer">
-
-        </div>
-      </div>    
-      <br>
-    {% endfor %}  
-  <button type="button" class="btn btn-primary" data-toggle="modal"  aria-pressed="true" data-target="#newBudget" data-title="Budget">
-    New Budget
-  </button>
+      </div>
+      <div class="card-body"></div>
+      <div class="card-footer"></div>
+    </div>      
+    <span class="budget-element-space"></span>    
+    {% endfor %}
+    <br>
+  </div>  
 </div>
+
+
 <script type='text/javascript' src='../static/js/budget.js'></script>
 {% endblock %}
