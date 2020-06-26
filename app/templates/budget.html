@@ -3,34 +3,43 @@
 
 {% include 'create_budget_modal.html' %}
 <link rel="stylesheet" type="text/css" href="../static/css/budget.css">
-<div>
-  <h2 class="top-padding">My Budgets</h2>     
-  <span class="budget-button-padding">
+
+<div class="container">  
+  <div class="row">
+    <h2>My Budgets</h2>
+  </div>
+  <div class="row top-padding" >        
     <button type="button" class="btn btn-primary" data-toggle="modal" aria-pressed="true" data-target="#newBudget" data-title="Budget">
       New Budget
-    </button>   
-  </span>
-
-  <div class="d-flex flex-row">
-    <span class="budget-element-space"></span>    
-    {% for budget in budgets  %}
-    <div class="card" style="width: 20rem;">
-      <div class="card-header">
-        <div class="d-inline-flex">{{ budget.title}}</div>
-        <div class="dropdown d-inline-flex float-right">
-          <button class="btn btn-secundary dropdown-toggle " type="button" id="dropdownMenuButton"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-          </div>
+    </button>
+  </div>
+  <div class="d-flex flex-row row">    
+    {% for budget in budgets  %}    
+    <div class="budget-element-space">
+      <div class="card " style="width: 20rem;">        
+        <div class="card-header border border-danger"> 
+          <div class="container">
+            <div class="row">
+              <div class="d-inline-flex col-10 border border-danger"><a ></a>{{ budget.title}}</div>
+              <div class="dropdown d-inline-flex float-right">
+                <button class="btn btn-secundary dropdown-toggle boder border-primary col" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Action</a>
+                </div>          
+              </div>
+            </div>        
+          </div>          
         </div>
-      </div>
-      <div class="card-body"></div>
-      <div class="card-footer"></div>
-    </div>      
-    <span class="budget-element-space"></span>    
-    {% endfor %}
-    <br>
+        <div class="card-body">
+          {{ budget.description }}
+        </div>
+        <div class="card-footer"></div>
+      </div>             
+    </div>
+    {% endfor %}    
+    <br>  
   </div>  
 </div>
 

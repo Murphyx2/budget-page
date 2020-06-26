@@ -53,14 +53,12 @@ def about():
 def budget():    
     form = createBugdetForm()
     budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')  
-    if request.method == 'POST':        
+    #Validation messages are missed, Must be added in the future
+    if request.method == 'POST' and form.validate():        
         budget = Budgets()
-        budget.user_id = current_user.get_id()
-        budget.title = form.title.data
-        budget.description = form.description.data  
-        budget.date_created = datetime.utcnow()      
+        budget.create_budget(current_user.get_id(),form.title.data,  datetime.utcnow(), form.description.data)        
         budget.save()                             
-        redirect(url_for('budget',make_response='GET'))                                  
+        redirect(url_for('budget',make_response='GET'))                                 
     return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgets)
 
 @app.route('/budget/<budget_id>', methods=['GET'])

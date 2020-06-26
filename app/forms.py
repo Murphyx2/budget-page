@@ -23,7 +23,7 @@ class ContactForm(FlaskForm):
 
 class createBugdetForm(FlaskForm):        
     title = StringField('Title',validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[optional(), length(max=200)])
+    description = TextAreaField('Description', validators=[optional(), length(max=300, message='Your message is too long')])
     submit = SubmitField('Create')
 
 #class updateBudgetForm(FlaskForm):

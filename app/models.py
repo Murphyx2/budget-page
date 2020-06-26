@@ -74,7 +74,11 @@ class Budgets(db.Document):
     def set_budget_items(self, budget_items):
         self.budget_items = budget_items
 
-
+    def create_budget(self, user_id, title, date_created, description=""):
+        self.user_id = user_id
+        self.title = title        
+        self.date_created = date_created
+        self.description = description
 
 
 
