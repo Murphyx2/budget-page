@@ -34,7 +34,7 @@ def login():
             flash('Invalid Username or password')
             return redirect(url_for('login'))                    
         login_user(user, remember=form.remember_me.data)
-        flash('Wellcome {name} {lastname}'.format(name=current_user.first_name, lastname=current_user.last_name))
+        flash('Welcome {name} {lastname}'.format(name=current_user.first_name, lastname=current_user.last_name))
         
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign in or Register', form=form, nav = nav)
@@ -58,18 +58,20 @@ def budget():
         budget = Budgets()
         budget.create_budget(current_user.get_id(),form.title.data,  datetime.utcnow(), form.description.data)        
         budget.save()                             
-        redirect(url_for('budget',make_response='GET'))                                 
-    return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgets)
+        redirect(url_for('budget',make_response='GET'))          
+    budgetElement = zip(budgets, range(len(budgets)))
+    return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgetElement)
 
 @app.route('/budget/<budget_id>', methods=['GET'])
 @login_required
 def check_budget(budget_id):
     budget = None    
     if request.method == 'GET':                
-        budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()        
-        for bud in budget:
-            print(budget[bud])
-        
+        budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()                
+        if budget is None:
+            flash('Budget does not contain elements')
+            return redirect(url_for(budget))    
+
     return render_template('unique_budget.html', title=budget.title, description=budget.description , nav=nav, budget=budget)
 
 
