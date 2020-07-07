@@ -16,19 +16,15 @@ function onSurface(id) {
   document.getElementById(id).setAttribute("style","background: #F0F8FF;");  
 }
 
-function offSurface(id) {  
-  document.getElementById(id).setAttribute("style","background: white;");
+function offSurface(id) {    
+  document.getElementById(id).setAttribute("style","background: #DCDCDC;");
 }
 
-function uniqueBudgetUrl(budgetID, id){
-  $('#'.concat('',id)).click(function(e){
-    if($(e.target).is('#dropdown0')){
-      //e.preventDefault();
-      return;
-    }else{
-      location.href="/budget/".concat('',budgetID);         
-    }     
-  });
+function uniqueBudgetUrl(budgetID, id){    
+    location.href="/budget/".concat('',budgetID);               
 };
+
+
+
 
 

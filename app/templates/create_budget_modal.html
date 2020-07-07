@@ -10,6 +10,7 @@
         </div>
         <div class="modal-body">
           <form method="POST" action="/budget">
+            {{ form.hidden_tag() }}
             <div class="form-group">
               {{ form.title.label(class_="col-form-label") }}
               {{ form.title(class_="form-control", size=30) }}

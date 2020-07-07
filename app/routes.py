@@ -51,13 +51,13 @@ def about():
 @app.route('/budget', methods=['GET','POST'])
 @login_required
 def budget():    
-    form = createBugdetForm()
+    form = createBugdetForm(request.form)
     budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')  
-    #Validation messages are missed, Must be added in the future
-    if request.method == 'POST' and form.validate():        
+    #Validation messages are missed, Must be added in the future    
+    if request.method == 'POST' and form.validate():                
         budget = Budgets()
-        budget.create_budget(current_user.get_id(),form.title.data,  datetime.utcnow(), form.description.data)        
-        budget.save()                             
+        budget.create_budget(current_user.get_id(),form.title.data,  datetime.utcnow(), form.description.data)                
+        budget.save()               
         redirect(url_for('budget',make_response='GET'))          
     budgetElement = zip(budgets, range(len(budgets)))
     return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgetElement)

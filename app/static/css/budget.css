@@ -12,6 +12,10 @@
     padding-top: 10px;
 }
 
-.overlay {    
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */    
-  }
+.card-header-style{
+    background-color: #DCDCDC;
+}
+
+/*.overlay {    
+    background-color: black(0,0,0,0.5); /* Black background with opacity 
+}*/
