@@ -16,6 +16,16 @@
     background-color: #DCDCDC;
 }
 
+.on-surface{
+    background: #F0F8FF;
+    transition: 400ms;
+}
+
+.off-surface{
+    background: #DCDCDC;
+    transition: 400ms;
+}
+
 /*.overlay {    
     background-color: black(0,0,0,0.5); /* Black background with opacity 
 }*/

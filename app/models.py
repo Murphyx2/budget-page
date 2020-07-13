@@ -28,11 +28,11 @@ class Users(UserMixin, db.Document):
     def load_user(user_id):
         return Users.objects(id=user_id).first()
 
-
-class Income_Expense(db.EmbeddedDocument):
+#Both income and Expense items share the same structure
+class Income(db.EmbeddedDocument):
     name = db.StringField(max_length=30)
     actual_amount = db.DecimalField()
-    planned_amount = db.DecimalField() 
+    planned_amount = db.DecimalField()     
 
 
     def set_values(self, name, actual_amount, planned_amount):
@@ -41,10 +41,21 @@ class Income_Expense(db.EmbeddedDocument):
         self.planned_amount = planned_amount
 
 
+class Expense(db.EmbeddedDocument):
+    name = db.StringField(max_length=30)
+    actual_amount = db.DecimalField()
+    planned_amount = db.DecimalField()     
+
+
+    def set_values(self, name, actual_amount, planned_amount):
+        self.name = name
+        self.actual_amount = actual_amount
+        self.planned_amount = planned_amount
+
 
 class Budget_Item(db.EmbeddedDocument):
-    income = db.ListField(db.EmbeddedDocumentField(Income_Expense))
-    expense = db.ListField(db.EmbeddedDocumentField(Income_Expense))
+    income = db.ListField(db.EmbeddedDocumentField(Income))
+    expense = db.ListField(db.EmbeddedDocumentField(Expense))
 
 
     def set_income(self, income):
@@ -59,6 +70,8 @@ class Budgets(db.Document):
     user_id = db.StringField(max_length=100)
     title = db.StringField(max_length=100)
     description = db.StringField(max_length=300)
+    total_planned_amount = db.DecimalField() 
+    total_actual_amount = db.DecimalField()    
     date_created= db.DateTimeField()
     budget_items = db.EmbeddedDocumentField(Budget_Item)
 

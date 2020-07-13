@@ -1,6 +1,6 @@
 from app import app
 from app.forms import LoginForm, ContactForm, createBugdetForm
-from app.models import Users, Budgets,Budget_Item, Income_Expense
+from app.models import Users, Budgets,Budget_Item, Income, Expense
 from app import db
 from flask import render_template, flash, redirect, url_for, make_response, flash, request
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
@@ -64,7 +64,7 @@ def budget():
 
 @app.route('/budget/<budget_id>', methods=['GET'])
 @login_required
-def check_budget(budget_id):
+def unique_budget(budget_id):
     budget = None    
     if request.method == 'GET':                
         budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()                
