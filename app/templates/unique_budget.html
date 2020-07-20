@@ -1,67 +1,65 @@
 {% extends 'layout.html' %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="../static/css/unique_budget.css">
+
 
 <div class="card">
     <div class="card-header">
-        <h4><strong>{{ budget.title }}</strong></h4>
-        <div> 
-            <label><strong>Description</strong></label>
-            <p>  {{ budget.description }}</p>
-        </div>
-        <div>
-            <label><strong>Date Created</strong></label>
-            <p> {{ budget.date_created }} </p>
+        <div class="container">            
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h4><strong>{{ budget.title }}</strong></h4>
+                </div>
+            </div>
+            <div class="row">                
+                <div class="col">                    
+                    <div>                         
+                        <label><strong>Description</strong></label>
+                        <p>  {{ budget.description }}</p>
+                    </div>
+                    <div>
+                        <label><strong>Date Created</strong></label>
+                            <p> {{ budget.date_created }} </p>
+                    </div>
+                </div>
+                <div class ="col">
+                    <h5>Total Expenses</h5>
+                    <div> 
+                        <label><strong>Total Planned Amount</strong></label>
+                        <p>  {{ budget.total_expenses_planned_amount }}</p>
+                    </div>
+                    <div> 
+                        <label><strong>Total Actual Amount</strong></label>
+                        <p>  {{ budget.total_expenses_actual_amount }}</p>
+                    </div>                
+                </div>
+                <div class="col">
+                    <h5>Total Income</h5>
+                    <div> 
+                        <label><strong>Total Planned Amount</strong></label>
+                        <p>  {{ budget.total_income_planned_amount }}</p>
+                    </div>
+                    <div> 
+                        <label><strong>Total Actual Amount</strong></label>
+                        <p>  {{ budget.total_income_actual_amount }}</p>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card-body">
         <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <h3> Incomes</h3>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm" >
-                                <p></p>     
-                            </div>
-                            <div class="col-sm" >                                
-                                <p>Planned Amount</p>   
-                            </div>
-                            <div class="col-sm" >
-                                <p>Actual Amount</p>                             
-                            </div> 
-                        </div>                           
-                    </div>
-                    {% for income in budget.budget_items.income  %}
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm" >
-                                <p> {{ income.name }} </p>     
-                            </div>
-                            <div class="col-sm" >                                
-                                <p class="text-left"> {{ income.planned_amount }} </p>   
-                            </div>
-                            <div class="col-sm" >
-                                <p class="text-left"> {{ income.actual_amount }} </p>                             
-                            </div> 
-                        </div>                           
-                    </div>
-                    {% endfor %}       
-                </div>
-                <div class="col-sm">
-                    <h3>Expenses</h3>
-                    {% for expense in budget.budget_items.expense  %}
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm" >
-                                <p> {{ expense.name }} </p>     
-                                <p> {{ expense.planned_amount }} </p>  
-                                <p> {{ expense.actual_amount }} </p>                              
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}   
-                </div>
-            </div>
+            <table class="unique-budget-table ">                             
+                <tr class="table-header">                    
+                    <th class="table-header-title" colspan="4">Expense</th>                                     
+                    <th class="table-header-title" colspan="4">Income</th>   
+                </tr>     
+                <tr>
+                    {% for title in titles*2 %}
+                        <th>{{title}}</th>
+                    {% endfor %}
+                </tr>                
+            </table>
         </div>
     </div>
 </div>

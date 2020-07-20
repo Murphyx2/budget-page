@@ -1,11 +1,14 @@
 from app import app
 from app.forms import LoginForm, ContactForm, createBugdetForm
-from app.models import Users, Budgets,Budget_Item, Income, Expense
+from app.models import Users, Budgets, Budget_Item, Income, Expense
 from app import db
 from flask import render_template, flash, redirect, url_for, make_response, flash, request
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
 from datetime import datetime
 
+
+#Module to create testing date
+from app import testingDataCreator
 
 nav = [{'name':'Home', 'url':'/home'},  
         {'name':'Transactions','url':'/transactions'},
@@ -18,7 +21,7 @@ logout = {'name':'Logout','url':'/logout'}
 
 @app.route('/')
 @app.route('/home')
-def index():             
+def index():                 
     return render_template('home.html', title='Home', description="Budget page index", nav = nav, user=None)
 
 
@@ -57,7 +60,7 @@ def budget():
     if request.method == 'POST' and form.validate():                
         budget = Budgets()
         budget.create_budget(current_user.get_id(),form.title.data,  datetime.utcnow(), form.description.data)                
-        budget.save()               
+        budget.save()        
         redirect(url_for('budget',make_response='GET'))          
     budgetElement = zip(budgets, range(len(budgets)))
     return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgetElement)
@@ -66,13 +69,15 @@ def budget():
 @login_required
 def unique_budget(budget_id):
     budget = None    
+    titles = ['Items','Planned Amount', 'Actual Amount', 'Difference']
     if request.method == 'GET':                
         budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()                
         if budget is None:
             flash('Budget does not contain elements')
             return redirect(url_for(budget))    
-
-    return render_template('unique_budget.html', title=budget.title, description=budget.description , nav=nav, budget=budget)
+        #Testing data creator
+        #testingDataCreator.create_testing_date(budget)
+    return render_template('unique_budget.html', title=budget.title, description=budget.description , nav=nav, budget=budget, titles=titles)
 
 
 @app.route('/register',methods=['GET','POST'])
