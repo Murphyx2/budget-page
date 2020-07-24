@@ -5,8 +5,7 @@
 
 <div class="card">
     <div class="card-header">
-        <div class="container">            
-            </div>
+        <div class="container">                        
             <div class="row">
                 <div class="col">
                     <h4><strong>{{ budget.title }}</strong></h4>
@@ -43,25 +42,68 @@
                     <div> 
                         <label><strong>Total Actual Amount</strong></label>
                         <p>  {{ budget.total_income_actual_amount }}</p>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="container tables-box">
+            <div class="">
+                <div class="row">
+                    <div class="col">
+                        <table class="unique-budget-table" id="expenseTable"> 
+                            <tread>
+                                <tr class="table-header"> 
+                                    <th class="table-header-title" colspan="4">Expense</th>
+                                </tr>     
+                                <tr>
+                                    {% for title in titles %}
+                                        <th>{{title}}</th>
+                                    {% endfor %}
+                                </tr>  
+                            </tread>   
+                            <tbody>
+                                {% for expense in budget.budget_items.expense %}
+                                    <tr>                    
+                                        <th>{{expense.name}}</th>
+                                        <th>{{expense.planned_amount}}</th>
+                                        <th>{{expense.actual_amount}}</th>                    
+                                        <th>{{expense.planned_amount - expense.actual_amount }}</th>
+                                    </tr>           
+                                {% endfor %}                    
+                            </tbody>
+                        </table>
+                    </div> 
+                    <div class="col">
+                        <table class="unique-budget-table" id="incomeTable"> 
+                            <tread>
+                                <tr class="table-header"> 
+                                    <th class="table-header-title" colspan="4">Income</th> 
+                                </tr>     
+                                <tr>
+                                    {% for title in titles %}
+                                        <th>{{title}}</th>
+                                    {% endfor %}
+                                </tr>  
+                            </tread>   
+                            <tbody>
+                                {% for income in budget.budget_items.income %}
+                                    <tr>                    
+                                        <th>{{income.name}}</th>
+                                        <th>{{income.planned_amount}}</th>
+                                        <th>{{income.actual_amount}}</th>                    
+                                        <th>{{income.planned_amount - income.actual_amount}}</th>
+                                    </tr>           
+                                {% endfor %}                    
+                            </tbody>
+                        </table>
+                    </div>   
                 </div>
             </div>
         </div>
     </div>
-    <div class="card-body">
-        <div class="container">
-            <table class="unique-budget-table ">                             
-                <tr class="table-header">                    
-                    <th class="table-header-title" colspan="4">Expense</th>                                     
-                    <th class="table-header-title" colspan="4">Income</th>   
-                </tr>     
-                <tr>
-                    {% for title in titles*2 %}
-                        <th>{{title}}</th>
-                    {% endfor %}
-                </tr>                
-            </table>
-        </div>
-    </div>
 </div>
 
+<script type='text/javascript' src='../static/js/unique_budget.js'></script>
 {% endblock %}
