@@ -52,6 +52,10 @@
             <div class="">
                 <div class="row">
                     <div class="col">
+                        <button id="expenseEditButton" class="btn float-right" style="font-size: 2em;"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
+                            <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"/>
+                          </svg></button>
                         <table class="unique-budget-table" id="expenseTable"> 
                             <tread>
                                 <tr class="table-header"> 
@@ -65,11 +69,11 @@
                             </tread>   
                             <tbody>
                                 {% for expense in budget.budget_items.expense %}
-                                    <tr>                    
-                                        <th>{{expense.name}}</th>
-                                        <th>{{expense.planned_amount}}</th>
-                                        <th>{{expense.actual_amount}}</th>                    
-                                        <th>{{expense.planned_amount - expense.actual_amount }}</th>
+                                    <tr id="expenseRow{{loop.index}}">                    
+                                        <td id="expense_name{{loop.index}}">{{expense.name}}</td>
+                                        <td id="expense_planned_amount{{loop.index}}">{{expense.planned_amount}}</td>
+                                        <td id="expense_actual_amount{{loop.index}}" >{{expense.actual_amount}}</td>                    
+                                        <td id="expense_difference{{loop.index}}">{{expense.planned_amount - expense.actual_amount }}</td>
                                     </tr>           
                                 {% endfor %}                    
                             </tbody>
@@ -89,11 +93,11 @@
                             </tread>   
                             <tbody>
                                 {% for income in budget.budget_items.income %}
-                                    <tr>                    
-                                        <th>{{income.name}}</th>
-                                        <th>{{income.planned_amount}}</th>
-                                        <th>{{income.actual_amount}}</th>                    
-                                        <th>{{income.planned_amount - income.actual_amount}}</th>
+                                    <tr id="incomeRow{{loop.index}}">
+                                        <td id="income_name{{loop.index}}">{{income.name}}</td>
+                                        <td id="income_planned_amount{{loop.index}}">{{income.planned_amount}}</td>
+                                        <td id="income_actual_amount{{loop.index}}">{{income.actual_amount}}</td>                   
+                                        <td id="income_difference{{loop.index}}">{{income.planned_amount - income.actual_amount}}</td>
                                     </tr>           
                                 {% endfor %}                    
                             </tbody>

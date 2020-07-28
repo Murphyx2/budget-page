@@ -1,20 +1,26 @@
-var tableRef = document.getElementById('expenseTable').getElementsByTagName('tbody')[document.getElementById('expenseTable').getElementsByTagName('tbody').length -1];
 
-var newRow = tableRef.insertRow(tableRef.rows.length);
+function create_newrow(tableName){
 
-var newCell = newRow.insertCell(0);
-var newCell1 = newRow.insertCell(1);
-var newCell2 = newRow.insertCell(2);
-var newCell3 = newRow.insertCell(3);
+    var MAX_CELL_NUMBER = 4;
+    var TAG_ID_ELEMENTS = [tableName+"_name", tableName+"_planned_amount", tableName+"_actual_amount", tableName+"_difference"]
+    var COUNT_EXPENSE_TABLE_ELEMENTS = document.getElementById(tableName+'Table').getElementsByTagName('tbody').length -1;
 
-var newText = document.createTextNode('New Row')
+    var table = document.getElementById(tableName+'Table').getElementsByTagName('tbody')[COUNT_EXPENSE_TABLE_ELEMENTS];
+    var last_row_number = table.rows.length;
+    var newRow = table.insertRow(last_row_number);
+    newRow.setAttribute("id", tableName +"Row"+ (last_row_number + 1));
 
-newCell.appendChild(newText);
-newCell1.appendChild(newText);
-newCell2.appendChild(newText);
-newCell.appendChild(newText);
+    for (var count = 0; count < MAX_CELL_NUMBER ; count++) {
+            var newCell = newRow.insertCell(count);
+            newCell.setAttribute("id",TAG_ID_ELEMENTS[count] + (last_row_number+1));    
+    }
+    
 
-newCell.style.border = "1px solid black"; 
-newCell1.style.border = "1px solid black"; 
-newCell2.style.border = "1px solid black"; 
-newCell3.style.border = "1px solid black"; 
+}
+
+create_newrow("expense");
+
+
+
+
+
