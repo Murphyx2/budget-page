@@ -19,3 +19,20 @@ tr, td {
     font-family: monospace;     
     font-size: large;    
 }
+
+#incomeAddButton, #incomeEditButton, #incomeRemoveButton{
+    visibility: visible;    
+    font-size: 1.8em;    
+}
+
+#expenseAddButton, #expenseEditButton,  #expenseRemoveButton{
+    visibility: visible;    
+    font-size: 1.8em;
+}
+
+#cancelButton, #saveButton{
+    margin-left: .5em;
+    margin-top: .5em;
+    width: 7.5em;    
+
+}
