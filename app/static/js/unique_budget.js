@@ -15,7 +15,7 @@ function create_newrow(tableName){
 
     for (var count = 0; count < MAX_CELL_NUMBER ; count++) {
             var newCell = newRow.insertCell(count);
-            newCell.setAttribute("id",TAG_ID_ELEMENTS[count] + (last_row_number+1));    
+            newCell.setAttribute("id",TAG_ID_ELEMENTS[count] + (last_row_number + 1));    
     }
     GLOBAL_NUMBER_ROW++;
     
@@ -35,5 +35,53 @@ function remove_lastrow(tableName){
     }
 }
 
+
+function toggle_button_visibility(){    
+    var editButton = document.getElementById("editButton");
+    //Ask for one, but affect both add and remove buttons
+    var expenseAddButton = document.getElementById('expenseAddButton');
+    var expenseRemoveButton = document.getElementById('expenseRemoveButton');
+    var incomeAddButton = document.getElementById('incomeAddButton');
+    var incomeRemoveButton = document.getElementById('incomeRemoveButton');
+    
+    var incomeSaveButton = document.getElementById('incomeSaveButton');
+    var expenseSaveButton = document.getElementById('expenseSaveButton');
+    var incomeCancelButton = document.getElementById('incomeCancelButton');
+    var expenseCancelButton = document.getElementById('expenseCancelButton');
+
+    if(editButton.value != 1){        
+        expenseRemoveButton.style.display = "block";
+        incomeRemoveButton.style.display = "block";
+        expenseAddButton.style.display = "block";
+        incomeAddButton.style.display = "block";
+
+        editButton.classList.add("btn-secondary");
+        editButton.classList.remove("btn-success");
+        editButton.value = 1;
+
+        incomeSaveButton.style.display = "block";
+        expenseSaveButton.style.display = "block";
+        incomeCancelButton.style.display = "block";
+        expenseCancelButton.style.display = "block";
+    } else { 
+        expenseRemoveButton.style.display = "none";
+        incomeRemoveButton.style.display = "none";
+        expenseAddButton.style.display = "none";
+        incomeAddButton.style.display = "none";
+        editButton.classList.remove("btn-secondary");
+        editButton.classList.add("btn-success");
+        editButton.value = 0;
+
+        incomeSaveButton.style.display = "none";
+        expenseSaveButton.style.display = "none";
+        incomeCancelButton.style.display = "none";
+        expenseCancelButton.style.display = "none";
+    }    
+
+}
+
+function testing(){
+    console.log('I did something')
+}
 
 

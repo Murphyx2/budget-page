@@ -20,19 +20,30 @@ tr, td {
     font-size: large;    
 }
 
-#incomeAddButton, #incomeEditButton, #incomeRemoveButton{
-    visibility: visible;    
+#incomeAddButton, #incomeRemoveButton{
+    display: none;    
     font-size: 1.8em;    
 }
 
-#expenseAddButton, #expenseEditButton,  #expenseRemoveButton{
-    visibility: visible;    
+#expenseAddButton,   #expenseRemoveButton{
+    display: none;
     font-size: 1.8em;
 }
 
-#cancelButton, #saveButton{
+#expenseEditButton, #incomeEditButton{
+    visibility: visible;
+    font-size: 1.8em;
+}
+
+#incomeSaveButton, #expenseCancelButton, #incomeCancelButton, #expenseSaveButton{
     margin-left: .5em;
     margin-top: .5em;
     width: 7.5em;    
+    display: none;
+}
 
+#editButton{
+    margin-left: .5em;
+    margin-top: .5em;
+    margin-bottom: .5em;
 }
