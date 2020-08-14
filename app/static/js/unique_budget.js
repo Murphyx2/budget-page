@@ -15,11 +15,30 @@ function create_newrow(tableName){
 
     for (var count = 0; count < MAX_CELL_NUMBER ; count++) {
             var newCell = newRow.insertCell(count);
-            newCell.setAttribute("id",TAG_ID_ELEMENTS[count] + (last_row_number + 1));    
+            newCell.setAttribute("id",TAG_ID_ELEMENTS[count] + (last_row_number + 1));
+            
+            //You can only edit the name or the planned amount
+            if(TAG_ID_ELEMENTS[count] === TAG_ID_ELEMENTS[0]){
+                newCell.setAttribute("contenteditable","true");
+
+            }else if(TAG_ID_ELEMENTS[count] === TAG_ID_ELEMENTS[1]){
+                newCell.setAttribute("contenteditable","true");
+                newCell.setAttribute("onkeypress", 'return isNumberKey(event)');                
+            }
     }
     GLOBAL_NUMBER_ROW++;
     
 }
+
+//Allow only numbers
+function isNumberKey(event){
+    var charCode = (event.which) ? event.which : event.keyCode
+    if (charCode > 31 && (charCode != 46 &&(charCode < 48 || charCode > 57))){
+        return false;
+    }
+    return true;
+}
+
 
 function remove_lastrow(tableName){
     var COUNT_ROWS_TABLE_ELEMENTS = document.getElementById(tableName+'Table').getElementsByTagName('tbody').length -1;

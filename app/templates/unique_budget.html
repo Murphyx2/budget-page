@@ -80,8 +80,8 @@
                             <tbody>
                                 {% for expense in budget.budget_items.expense %}
                                     <tr id="expenseRow{{loop.index}}">                    
-                                        <td id="expense_name{{loop.index}}">{{expense.name}}</td>
-                                        <td id="expense_planned_amount{{loop.index}}">{{expense.planned_amount}}</td>
+                                        <td id="expense_name{{loop.index}}" contenteditable="false">{{expense.name}}</td>
+                                        <td id="expense_planned_amount{{loop.index}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{expense.planned_amount}}</td>
                                         <td id="expense_actual_amount{{loop.index}}" >{{expense.actual_amount}}</td>                    
                                         <td id="expense_difference{{loop.index}}">{{expense.planned_amount - expense.actual_amount }}</td>
                                     </tr>           
@@ -120,8 +120,8 @@
                             <tbody>
                                 {% for income in budget.budget_items.income %}
                                     <tr id="incomeRow{{loop.index}}">
-                                        <td id="income_name{{loop.index}}">{{income.name}}</td>
-                                        <td id="income_planned_amount{{loop.index}}">{{income.planned_amount}}</td>
+                                        <td id="income_name{{loop.index}}" contenteditable="false">{{income.name}}</td>
+                                        <td id="income_planned_amount{{loop.index}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{income.planned_amount}}</td>
                                         <td id="income_actual_amount{{loop.index}}">{{income.actual_amount}}</td>                   
                                         <td id="income_difference{{loop.index}}">{{income.planned_amount - income.actual_amount}}</td>
                                     </tr>           
