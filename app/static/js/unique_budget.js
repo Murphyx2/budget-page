@@ -1,15 +1,46 @@
 var DEFAULT_ROW_HEIGHT = "2em";
-var GLOBAL_NUMBER_ROW  = 0;
+var INCOME_NUMBER_ROW  = 0;
+var EXPENSE_NUMBER_ROW  = 0;
+
+
+
+// Expense table event Listener
+var expenseTable = document.querySelector('#expenseTable');
+
+expenseTable.addEventListener('click', function(event){
+    var expenseCell = String(event.target.id);
+
+    var editButton = document.getElementById("editButton");
+    console.log(editButton.value);
+    if((editButton.value == 1) && (expenseCell.includes("expense_name") || expenseCell.includes("planned_amount"))){
+        document.getElementById(expenseCell).setAttribute("contenteditable","true");
+    }    
+})
+
+// Income table event Listener
+var incomeTable = document.querySelector('#incomeTable');
+
+incomeTable.addEventListener('click', function(event){
+    var expenseCell = String(event.target.id);
+
+    var editButton = document.getElementById("editButton");
+    console.log(editButton.value);
+    if((editButton.value == 1) && (expenseCell.includes("income_name") || expenseCell.includes("planned_amount"))){
+        document.getElementById(expenseCell).setAttribute("contenteditable","true");
+    }    
+})
+
 
 function create_newrow(tableName){
-
+    var completeTableName = tableName+'Table'
     var MAX_CELL_NUMBER = 4;
     var TAG_ID_ELEMENTS = [tableName+"_name", tableName+"_planned_amount", tableName+"_actual_amount", tableName+"_difference"]
-    var COUNT_ROWS_TABLE_ELEMENTS = document.getElementById(tableName+'Table').getElementsByTagName('tbody').length -1;
-
-    var table = document.getElementById(tableName+'Table').getElementsByTagName('tbody')[COUNT_ROWS_TABLE_ELEMENTS];
+    var COUNT_ROWS_TABLE_ELEMENTS = document.getElementById(completeTableName).getElementsByTagName('tbody').length -1;
+    var table = document.getElementById(completeTableName).getElementsByTagName('tbody')[COUNT_ROWS_TABLE_ELEMENTS];
+    
     var last_row_number = table.rows.length;
     var newRow = table.insertRow(last_row_number);
+    
     newRow.setAttribute("id", tableName +"Row"+ (last_row_number + 1));
     newRow.style.height = DEFAULT_ROW_HEIGHT;
 
@@ -26,7 +57,11 @@ function create_newrow(tableName){
                 newCell.setAttribute("onkeypress", 'return isNumberKey(event)');                
             }
     }
-    GLOBAL_NUMBER_ROW++;
+    if(completeTableName==="expenseTable"){
+        EXPENSE_NUMBER_ROW++;
+    }else{
+        INCOME_NUMBER_ROW++;
+    }
     
 }
 
@@ -41,16 +76,29 @@ function isNumberKey(event){
 
 
 function remove_lastrow(tableName){
-    var COUNT_ROWS_TABLE_ELEMENTS = document.getElementById(tableName+'Table').getElementsByTagName('tbody').length -1;
-    var table = document.getElementById(tableName+'Table').getElementsByTagName('tbody')[COUNT_ROWS_TABLE_ELEMENTS];
+    var completeTableName = tableName+'Table'
+    var COUNT_ROWS_TABLE_ELEMENTS = document.getElementById(completeTableName).getElementsByTagName('tbody').length -1;    
+    var table = document.getElementById(completeTableName).getElementsByTagName('tbody')[COUNT_ROWS_TABLE_ELEMENTS];
     var last_row_number = table.rows.length - 1;
+    
     //At the moment you cannot delete existing elements in the table
-    if(GLOBAL_NUMBER_ROW>0){
-        table.deleteRow(last_row_number)
-        GLOBAL_NUMBER_ROW--;
-    }else if(GLOBAL_NUMBER_ROW === 0){
-        //I should ask to the user if he wants to eleminate 
-        console.log("Modal to ask to delete an elemented in the database");
+    
+    if(completeTableName==="expenseTable"){
+        if(EXPENSE_NUMBER_ROW > 0){
+            table.deleteRow(last_row_number)
+            EXPENSE_NUMBER_ROW--;
+        }else if(EXPENSE_NUMBER_ROW === 0){
+            //I should ask to the user if he wants to eleminate 
+            console.log("Modal to ask to delete an elemented in the database");
+        }
+    }else if(completeTableName==="incomeTable"){
+        if(INCOME_NUMBER_ROW > 0){
+            table.deleteRow(last_row_number)
+            INCOME_NUMBER_ROW--;
+        }else if(INCOME_NUMBER_ROW === 0){
+            //I should ask to the user if he wants to eleminate 
+            console.log("Modal to ask to delete an elemented in the database");
+        }
     }
 }
 
@@ -63,10 +111,8 @@ function toggle_button_visibility(){
     var incomeAddButton = document.getElementById('incomeAddButton');
     var incomeRemoveButton = document.getElementById('incomeRemoveButton');
     
-    var incomeSaveButton = document.getElementById('incomeSaveButton');
-    var expenseSaveButton = document.getElementById('expenseSaveButton');
-    var incomeCancelButton = document.getElementById('incomeCancelButton');
-    var expenseCancelButton = document.getElementById('expenseCancelButton');
+    var SaveButton = document.getElementById('SaveButton');    
+    var CancelButton = document.getElementById('CancelButton');    
 
     if(editButton.value != 1){        
         expenseRemoveButton.style.display = "block";
@@ -78,10 +124,8 @@ function toggle_button_visibility(){
         editButton.classList.remove("btn-success");
         editButton.value = 1;
 
-        incomeSaveButton.style.display = "block";
-        expenseSaveButton.style.display = "block";
-        incomeCancelButton.style.display = "block";
-        expenseCancelButton.style.display = "block";
+        SaveButton.style.display = "block";        
+        CancelButton.style.display = "block";        
     } else { 
         expenseRemoveButton.style.display = "none";
         incomeRemoveButton.style.display = "none";
@@ -90,14 +134,18 @@ function toggle_button_visibility(){
         editButton.classList.remove("btn-secondary");
         editButton.classList.add("btn-success");
         editButton.value = 0;
-
-        incomeSaveButton.style.display = "none";
-        expenseSaveButton.style.display = "none";
-        incomeCancelButton.style.display = "none";
-        expenseCancelButton.style.display = "none";
+        
+        SaveButton.style.display = "none";        
+        CancelButton.style.display = "none";
     }    
 
 }
+
+
+function saveChanges(){
+    
+}
+
 
 function testing(){
     console.log('I did something')

@@ -65,6 +65,7 @@ def budget():
     budgetElement = zip(budgets, range(len(budgets)))
     return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgetElement)
 
+
 @app.route('/budget/<budget_id>', methods=['GET'])
 @login_required
 def unique_budget(budget_id):
@@ -94,6 +95,11 @@ def transactions():
 @app.route('/under_construction')
 def under_construction():
     return render_template('under_construction.html', title='Site Under Construction', description='Site not ready', nav=nav)
+
+
+@app.route('/update_table', methods=['POST'])
+def update_table(budget_id):
+    return redirect(url_for('under_construction'))
 
 
 @app.errorhandler(404)

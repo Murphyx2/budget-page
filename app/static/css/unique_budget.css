@@ -35,7 +35,7 @@ tr, td {
     font-size: 1.8em;
 }
 
-#incomeSaveButton, #expenseCancelButton, #incomeCancelButton, #expenseSaveButton{
+#CancelButton, #SaveButton{
     margin-left: .5em;
     margin-top: .5em;
     width: 7.5em;    
