@@ -79,11 +79,11 @@
                             </tread>   
                             <tbody>
                                 {% for expense in budget.budget_items.expense %}
-                                    <tr id="expenseRow_{{loop.index}}">                    
-                                        <td id="expense_name_{{loop.index}}" contenteditable="false">{{expense.name}}</td>
-                                        <td id="expense_planned_amount_{{loop.index}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{expense.planned_amount}}</td>
-                                        <td id="expense_actual_amount_{{loop.index}}" >{{expense.actual_amount}}</td>                    
-                                        <td id="expense_difference_{{loop.index}}">{{expense.planned_amount - expense.actual_amount }}</td>
+                                    <tr id="expenseRow_{{loop.index - 1}}">                    
+                                        <td id="expense_name_{{loop.index - 1}}" contenteditable="false">{{expense.name}}</td>
+                                        <td id="expense_planned_amount_{{loop.index - 1}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{expense.planned_amount}}</td>
+                                        <td id="expense_actual_amount_{{loop.index - 1}}" >{{expense.actual_amount}}</td>                    
+                                        <td id="expense_difference_{{loop.index - 1}}">{{expense.planned_amount - expense.actual_amount }}</td>
                                     </tr>           
                                 {% endfor %}                    
                             </tbody>
@@ -115,11 +115,11 @@
                             </tread>   
                             <tbody>
                                 {% for income in budget.budget_items.income %}
-                                    <tr id="incomeRow_{{loop.index}}">
-                                        <td id="income_name_{{loop.index}}" contenteditable="false">{{income.name}}</td>
-                                        <td id="income_planned_amount_{{loop.index}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{income.planned_amount}}</td>
-                                        <td id="income_actual_amount_{{loop.index}}">{{income.actual_amount}}</td>                   
-                                        <td id="income_difference_{{loop.index}}">{{income.planned_amount - income.actual_amount}}</td>
+                                    <tr id="incomeRow_{{loop.index - 1}}">
+                                        <td id="income_name_{{loop.index - 1}}" contenteditable="false">{{income.name}}</td>
+                                        <td id="income_planned_amount_{{loop.index - 1}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{income.planned_amount}}</td>
+                                        <td id="income_actual_amount_{{loop.index - 1}}">{{income.actual_amount}}</td>                   
+                                        <td id="income_difference_{{loop.index - 1}}">{{income.planned_amount - income.actual_amount}}</td>
                                     </tr>           
                                 {% endfor %}                    
                             </tbody>

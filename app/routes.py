@@ -54,7 +54,7 @@ def about():
 @app.route('/budget', methods=['GET','POST'])
 @login_required
 def budget():    
-    form = createBugdetForm(request.form)
+    form = createBugdetForm(request.form)    
     budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')  
     #Validation messages are missed, Must be added in the future    
     if request.method == 'POST' and form.validate():                
@@ -69,10 +69,10 @@ def budget():
 @app.route('/budget/<budget_id>', methods=['GET'])
 @login_required
 def unique_budget(budget_id):
-    budget = None    
+    budget = None        
     titles = ['Items','Planned Amount', 'Actual Amount', 'Difference']
     if request.method == 'GET':                
-        budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()                
+        budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()
         if budget is None:
             flash('Budget does not contain elements')
             return redirect(url_for(budget))    
@@ -98,7 +98,18 @@ def under_construction():
 
 
 @app.route('/update_table', methods=['POST'])
-def update_table(budget_id):
+@login_required
+def update_table():        
+    
+    print(request.form["budget_id"])
+    print(request.form["income"])
+    print(request.form["expense"])
+    
+
+    #budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()
+    #budget.budget_items.income = income
+    #budget.budget_items.expense = expense
+    #budget.save()
     return redirect(url_for('under_construction'))
 
 

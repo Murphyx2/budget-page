@@ -28,6 +28,7 @@ class Users(UserMixin, db.Document):
     def load_user(user_id):
         return Users.objects(id=user_id).first()
 
+
 #Both income and Expense items share the same structure
 class Income(db.EmbeddedDocument):
     name = db.StringField(max_length=30)

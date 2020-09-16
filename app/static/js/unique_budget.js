@@ -10,8 +10,7 @@ var expenseTable = document.querySelector('#expenseTable');
 expenseTable.addEventListener('click', function(event){
     var expenseCell = String(event.target.id);
 
-    var editButton = document.getElementById("editButton");
-    console.log(editButton.value);
+    var editButton = document.getElementById("editButton");    
     if((editButton.value == 1) && (expenseCell.includes("expense_name") || expenseCell.includes("planned_amount"))){
         document.getElementById(expenseCell).setAttribute("contenteditable","true");
     }    
@@ -81,8 +80,7 @@ function remove_lastrow(tableName){
     var table = document.getElementById(completeTableName).getElementsByTagName('tbody')[COUNT_ROWS_TABLE_ELEMENTS];
     var last_row_number = table.rows.length - 1;
     
-    //At the moment you cannot delete existing elements in the table
-    
+    //At the moment you cannot delete existing elements in the table    
     if(completeTableName==="expenseTable"){
         if(EXPENSE_NUMBER_ROW > 0){
             table.deleteRow(last_row_number)
@@ -141,14 +139,49 @@ function toggle_button_visibility(){
 
 }
 
+//Capture event Save Button 
+document.querySelector('#SaveButton').addEventListener('click', function(event){    
+    var formData = new FormData();
 
-function saveChanges(){
+    var xhttp = new XMLHttpRequest();
+    var currentURL = window.location.href.split("/");
+
+    var expenseItems = getTableValuesIntoJson("expenseTable");
+    var incomeItems = getTableValuesIntoJson("incomeTable");        
     
+    formData.append("budget_id",currentURL[4]);
+    formData.append("income",incomeItems);
+    formData.append("expense",expenseItems);
+
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            alert("Saved");
+        }
+    };
+    xhttp.open("POST", "/update_table", true);
+    xhttp.send(formData);            
+})
+
+function getTableValuesIntoJson(tableName){
+    table = document.getElementById(tableName);
+    var items = [];    
+
+    for (var count = 2, row; row = table.rows[count]; count++){   
+        var rowElements = {"name":"", "planned_amount":0.0, "actual_amount":0.0};               
+        rowElements["name"]= row.cells[0].innerHTML;
+        rowElements["planned_amount"]= row.cells[1].innerHTML;
+        rowElements["actual_amount"]= row.cells[2].innerHTML;                
+
+        items.push(rowElements);
+    }
+
+    if (tableName === "incomeTable"){
+        var alltableElements = {"incomeItems":[]};
+        alltableElements["incomeItems"] = items;        
+    }else {
+        var alltableElements = {"expenseItems":[]};
+        alltableElements["expenseItems"] = items;        
+    }
+    console.log(JSON.stringify(alltableElements));
+    return JSON.stringify(alltableElements);
 }
-
-
-function testing(){
-    console.log('I did something')
-}
-
-
