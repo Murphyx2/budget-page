@@ -49,7 +49,13 @@ class Income(db.EmbeddedDocument):
     def set_planned_amount(self, new_planned_amount):
         self.planned_amount = new_planned_amount
 
-
+    def create_list_income_from_externalSource(self, elements):
+        elementList = []         
+        for element in elements:
+            expense.set_values(element["name"],element["actual_amount"],element["planned_amount"])
+            elementList.append(expense)
+        
+        return elementList
 
 class Expense(db.EmbeddedDocument):
     name = db.StringField(max_length=30)
@@ -70,9 +76,28 @@ class Expense(db.EmbeddedDocument):
         self.planned_amount = new_planned_amount
 
 
+class Income_Expense(db.EmbeddedDocument):
+    name = db.StringField(max_length=30)
+    actual_amount = db.DecimalField()
+    planned_amount = db.DecimalField()         
+
+    def set_values(self, name, actual_amount = 0.0, planned_amount=0.0):
+        self.name = name
+        self.actual_amount = actual_amount
+        self.planned_amount = planned_amount
+
+
+    def set_actual_amount(self, new_actual_amount):
+        self.actual_amount = new_actual_amount
+
+    
+    def set_planned_amount(self, new_planned_amount):
+        self.planned_amount = new_planned_amount
+
+
 class Budget_Item(db.EmbeddedDocument):
-    income = db.ListField(db.EmbeddedDocumentField(Income))
-    expense = db.ListField(db.EmbeddedDocumentField(Expense))
+    income = db.ListField(db.EmbeddedDocumentField(Income_Expense))
+    expense = db.ListField(db.EmbeddedDocumentField(Income_Expense))
 
 
     def add_income(self, income):
@@ -81,6 +106,18 @@ class Budget_Item(db.EmbeddedDocument):
 
     def add_expense(self, expense):
         self.expense.append(expense)
+
+
+    def fill_list_income_expenses_from_json(elementName, elementObject):
+        elementList = []
+        for element in elementObject[elementName]:
+            income_expense = Income_Expense()
+            income_expense.name = element["name"]
+            income_expense.actual_amount = element["actual_amount"]
+            income_expense.planned_amount = element["planned_amount"]            
+            elementList.append(income_expense)
+        
+        return elementList
 
 
 class Budgets(db.Document):    

@@ -158,7 +158,7 @@ document.querySelector('#SaveButton').addEventListener('click', function(event){
             alert("Saved");
         }
     };
-    xhttp.open("POST", "/update_table", true);
+    xhttp.open("POST", "/update_income_expenses", true);
     xhttp.send(formData);            
 })
 

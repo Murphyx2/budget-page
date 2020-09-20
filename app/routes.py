@@ -6,6 +6,7 @@ from flask import render_template, flash, redirect, url_for, make_response, flas
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
 from datetime import datetime
 
+import json
 
 #Module to create testing date
 from app import testingDataCreator
@@ -97,14 +98,24 @@ def under_construction():
     return render_template('under_construction.html', title='Site Under Construction', description='Site not ready', nav=nav)
 
 
-@app.route('/update_table', methods=['POST'])
+@app.route('/update_income_expenses', methods=['POST'])
 @login_required
-def update_table():        
+def update_income_expenses():        
+        
+    incomeJson = json.loads(request.form["income"])
+    expenseJson = json.loads(request.form["expense"])
     
-    print(request.form["budget_id"])
-    print(request.form["income"])
-    print(request.form["expense"])
+    print(incomeJson['incomeItems'])
+
+    budget = Budgets.objects(user_id=current_user.get_id(), id=request.form["budget_id"]).first()        
     
+    print(budget.budget_items.income[0].name)    
+    
+
+    #for element in expensePost["expenseItems"]:
+    #    print(element["name"])
+    #    print(element["planned_amount"])
+    #    print(element["actual_amount"])    
 
     #budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()
     #budget.budget_items.income = income
