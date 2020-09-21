@@ -1,4 +1,4 @@
-from app.models import Users, Budgets, Budget_Item, Income, Expense
+from app.models import Users, Budgets, Budget_Item, Income_Expense
 from app import db
 
 def create_testing_date(budget):    

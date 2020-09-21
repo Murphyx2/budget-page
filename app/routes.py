@@ -1,6 +1,6 @@
 from app import app
 from app.forms import LoginForm, ContactForm, createBugdetForm
-from app.models import Users, Budgets, Budget_Item, Income, Expense
+from app.models import Users, Budgets, Budget_Item, Income_Expense
 from app import db
 from flask import render_template, flash, redirect, url_for, make_response, flash, request
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
@@ -69,11 +69,11 @@ def budget():
 
 @app.route('/budget/<budget_id>', methods=['GET'])
 @login_required
-def unique_budget(budget_id):
-    budget = None        
-    titles = ['Items','Planned Amount', 'Actual Amount', 'Difference']
+def unique_budget(budget_id):        
+    budget = None            
+    titles = ['Items','Planned Amount', 'Actual Amount', 'Difference']        
     if request.method == 'GET':                
-        budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()
+        budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()        
         if budget is None:
             flash('Budget does not contain elements')
             return redirect(url_for(budget))    
@@ -103,25 +103,16 @@ def under_construction():
 def update_income_expenses():        
         
     incomeJson = json.loads(request.form["income"])
-    expenseJson = json.loads(request.form["expense"])
-    
-    print(incomeJson['incomeItems'])
+    expenseJson = json.loads(request.form["expense"])      
 
-    budget = Budgets.objects(user_id=current_user.get_id(), id=request.form["budget_id"]).first()        
-    
-    print(budget.budget_items.income[0].name)    
-    
+    budget = Budgets.objects(user_id=current_user.get_id(), id=request.form["budget_id"]).first()               
 
-    #for element in expensePost["expenseItems"]:
-    #    print(element["name"])
-    #    print(element["planned_amount"])
-    #    print(element["actual_amount"])    
-
-    #budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()
-    #budget.budget_items.income = income
-    #budget.budget_items.expense = expense
-    #budget.save()
-    return redirect(url_for('under_construction'))
+    budget.budget_items.fill_list_income_expenses_from_json('incomeItems', incomeJson)
+    budget.budget_items.fill_list_income_expenses_from_json('expenseItems', expenseJson)
+    budget.save()
+    budget.reload()
+    
+    return redirect(url_for('budget',budget_id=budget.id))
 
 
 @app.errorhandler(404)
