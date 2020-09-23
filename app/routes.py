@@ -22,8 +22,8 @@ logout = {'name':'Logout','url':'/logout'}
 
 @app.route('/')
 @app.route('/home')
-def index():                 
-    return render_template('home.html', title='Home', description="Budget page index", nav = nav, user=None)
+def index():    
+    return render_template('home.html', title='Home', description="Budget page index", nav = nav, user=current_user)
 
 
 @app.route('/login', methods=['GET','POST'])
@@ -38,8 +38,7 @@ def login():
             flash('Invalid Username or password')
             return redirect(url_for('login'))                    
         login_user(user, remember=form.remember_me.data)
-        flash('Welcome {name} {lastname}'.format(name=current_user.first_name, lastname=current_user.last_name))
-        
+        #flash('Welcome {name} {lastname}'.format(name=current_user.first_name, lastname=current_user.last_name))        
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign in or Register', form=form, nav = nav)
 
@@ -90,7 +89,7 @@ def register():
 
 @app.route('/transactions', methods=['GET','POST'])
 def transactions():
-    return redirect(url_for('under_construction'))
+    return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav)
 
 
 @app.route('/under_construction')

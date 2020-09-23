@@ -159,7 +159,8 @@ document.querySelector('#SaveButton').addEventListener('click', function(event){
         }
     };
     xhttp.open("POST", "/update_income_expenses", true);
-    xhttp.send(formData);            
+    xhttp.send(formData);
+    toggle_button_visibility()            
 })
 
 function getTableValuesIntoJson(tableName){
