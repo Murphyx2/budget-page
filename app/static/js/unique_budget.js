@@ -168,9 +168,9 @@ function getTableValuesIntoJson(tableName){
 
     for (var count = 2, row; row = table.rows[count]; count++){   
         var rowElements = {"name":"", "planned_amount":0.0, "actual_amount":0.0};               
-        rowElements["name"]= row.cells[0].innerHTML;
-        rowElements["planned_amount"]= row.cells[1].innerHTML;
-        rowElements["actual_amount"]= row.cells[2].innerHTML;                
+        rowElements["name"]= row.cells[0].innerHTML.replace(/&nbsp;/g,' ');
+        rowElements["planned_amount"]= row.cells[1].innerHTML.replace(/&nbsp;/g,' ');
+        rowElements["actual_amount"]= row.cells[2].innerHTML.replace(/&nbsp;/g,' ');                
 
         items.push(rowElements);
     }
