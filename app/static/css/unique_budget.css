@@ -35,10 +35,14 @@ tr, td {
     font-size: 1.8em;
 }
 
+.remove-button-cell{
+    visibility: hidden;
+}
+
 #CancelButton, #SaveButton{
     margin-left: .5em;
     margin-top: .5em;
-    width: 7.5em;    
+    width: 10.5em;    
     display: none;
 }
 

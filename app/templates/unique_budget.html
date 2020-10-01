@@ -53,13 +53,7 @@
                     <button id="editButton" type="button"  class="btn btn-success" value="0" onclick="toggle_button_visibility()">Edit</button>                            
                 </div>
                 <div class="row">
-                    <div class="col">                          
-                        <button id="expenseRemoveButton" type="button" class="btn float-right" onclick="remove_lastrow('expense')">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-minus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
-                                <path fill-rule="evenodd" d="M5.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                        </button>                        
+                    <div class="col">                                                 
                         <button id="expenseAddButton" type="button" class="btn float-right" onclick="create_newrow('expense')">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
@@ -84,18 +78,15 @@
                                         <td id="expense_planned_amount_{{loop.index - 1}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{expense.planned_amount}}</td>
                                         <td id="expense_actual_amount_{{loop.index - 1}}" >{{expense.actual_amount}}</td>                    
                                         <td id="expense_difference_{{loop.index - 1}}">{{expense.planned_amount - expense.actual_amount }}</td>
+                                        <td class="remove-button-cell">                                            
+                                            <a role="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt" onclick="remove_row('expenseRow_{{loop.index - 1}}')"></i></a>
+                                        </td>
                                     </tr>           
                                 {% endfor %}                    
                             </tbody>
                         </table>
                     </div> 
                     <div class="col">                                                
-                        <button id="incomeRemoveButton" type="button" class="btn float-right" onclick="remove_lastrow('income')">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-minus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
-                                <path fill-rule="evenodd" d="M5.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                        </button>
                         <button id="incomeAddButton" type="button" class="btn float-right" onclick="create_newrow('income')">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
@@ -120,6 +111,9 @@
                                         <td id="income_planned_amount_{{loop.index - 1}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{income.planned_amount}}</td>
                                         <td id="income_actual_amount_{{loop.index - 1}}">{{income.actual_amount}}</td>                   
                                         <td id="income_difference_{{loop.index - 1}}">{{income.planned_amount - income.actual_amount}}</td>
+                                        <td class="remove-button-cell">                                            
+                                            <a role="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt" onclick="remove_row('incomeRow_{{loop.index - 1}}')"></i></a>
+                                        </td>
                                     </tr>           
                                 {% endfor %}                    
                             </tbody>
