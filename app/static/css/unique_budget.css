@@ -1,5 +1,23 @@
+.card-header-custom{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: 130px;
+}
+
+.header-col-font{
+    font-size: 10px;
+}
+
 .unique-budget-table{
     width: 100%;
+}
+
+.addbutton{    
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 table, tr, th{

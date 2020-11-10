@@ -9,10 +9,12 @@
   <div class="row">
     <h2>My Budgets</h2>
   </div>
-  <div class="row top-padding" >        
-    <button type="button" class="btn btn-primary" data-toggle="modal" aria-pressed="true" data-target="#newBudget" data-title="Budget">
+  <div class="row top-padding" >
+    <div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" aria-pressed="true" data-target="#newBudget" data-title="Budget">
       New Budget
-    </button>
+      </button>
+    </div>
   </div>
   <div class="d-flex flex-row row">    
     {% for budget, num in budgets  %}    
@@ -23,14 +25,16 @@
             <div class="row">
               <div class="d-inline-flex col-10">
                 <p class="font-weight-bold">{{budget.title}}</p>
-              </div>                                
-              <div class="dropdown col-1" id="dropdown0">
-                <button class="btn btn-secundary dropdown-toggle col" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Action</a>
-                </div>          
+              </div>              
+                <div class="dropdown show col-sm-1" id="dropdown0">                
+                    <button class="btn btn-secundary dropdown-toggle col menu-button" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                    </button>                
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Edit</a>
+                    <a class="dropdown-item" href="#">Create Copy</a>
+                    <a class="dropdown-item" href="#">Remove</a>
+                  </div>              
               </div>
             </div>                  
           </div>

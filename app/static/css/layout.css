@@ -1,0 +1,24 @@
+.container-layout{        
+    height: auto;
+}
+
+.logo{
+    font-family: sans-serif;
+    float: left;
+}
+
+.custom-nav{    
+    width: 700px;
+    float: left;
+}
+
+.custom-nav > nav > ul > li:hover{
+    background-color: orange;
+}
+.logout{
+    margin-left: 10px;
+}
+
+.clear-fix{
+    clear: both;
+}

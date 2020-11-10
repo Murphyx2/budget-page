@@ -1,16 +1,24 @@
-<header>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <ul class="navbar-nav">
-            {% for link in nav %}
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ link.url }}">{{ link.name }}</a>
-            </li>
-            {% endfor %}                 
-        </ul>
+<header class="bg-dark navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">    
+    <div class="logo navbar-brand mr-0 mr-md-2">
+        <a class="" href={{ url_for('index') }}> Aqui va un logo</a>
+    </div> 
+    <div class="navbar-nav-scroll">
+            <nav class="">        
+                <ul class="navbar-nav bd-navbar-nav flex-row">
+                    {% for link in nav %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ link.url }}">{{ link.name }}</a>
+                    </li>
+                    {% endfor %}                 
+                </ul>
+            </nav>
+        </div>
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
             {% if current_user.is_anonymous %}
-                <a class="" href={{ url_for('login') }}>Login</a>
+                <li class="nav-item"><a class="" href={{ url_for('login') }}>Login</a></li>
             {% else %}
-                <a class="" href={{ url_for('logout') }}>Logout</a>
-            {% endif %}
-    </nav>
+                <li class="nav-item"><a class="" href=""> {{user.first_name}} {{user.last_name}}</a></li>
+                <li class="nav-item  logout"><a class="" href={{ url_for('logout') }}>Log out</a></li>
+            {% endif %}        
+    </div>
 </header>

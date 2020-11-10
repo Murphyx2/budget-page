@@ -17,8 +17,6 @@ nav = [{'name':'Home', 'url':'/home'},
         {'name':'About','url':'/about'},                
         ]
 
-signin = {'name':'Sign in','url':'/login'}
-logout = {'name':'Logout','url':'/logout'}
 
 @app.route('/')
 @app.route('/home')
@@ -48,7 +46,7 @@ def about():
     form = ContactForm()
     if form.validate_on_submit():
         return redirect('/index', nav=nav, description='Algo', title='')
-    return render_template('about.html', title='About', description= 'This about the page', nav=nav, form=form)
+    return render_template('about.html', title='About', description= 'This about the page', nav=nav, form=form, user=current_user)
 
 
 @app.route('/budget', methods=['GET','POST'])
@@ -63,7 +61,7 @@ def budget():
         budget.save()        
         redirect(url_for('budget',make_response='GET'))          
     budgetElement = zip(budgets, range(len(budgets)))
-    return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgetElement)
+    return render_template('budget.html', title='Budget', description='This about the page creating a budget', nav=nav, form=form, budgets=budgetElement, user=current_user)
 
 
 @app.route('/budget/<budget_id>', methods=['GET'])
@@ -74,11 +72,11 @@ def unique_budget(budget_id):
     if request.method == 'GET':                
         budget = Budgets.objects(user_id=current_user.get_id(), id=budget_id).first()        
         if budget is None:
-            flash('Budget does not contain elements')
-            return redirect(url_for(budget))    
+            flash(' '.join(('Budget with ID = ',budget_id, 'could not be found')))            
+            return redirect(url_for('budget'))    
         #Testing data creator
         #testingDataCreator.create_testing_date(budget)
-    return render_template('unique_budget.html', title=budget.title, description=budget.description , nav=nav, budget=budget, titles=titles)
+    return render_template('unique_budget.html', title=budget.title, description=budget.description , nav=nav, budget=budget, titles=titles, user=current_user)
 
 
 @app.route('/register',methods=['GET','POST'])
@@ -89,23 +87,23 @@ def register():
 
 @app.route('/transactions', methods=['GET','POST'])
 def transactions():
-    return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav)
+    return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user)
 
 
 @app.route('/under_construction')
 def under_construction():
-    return render_template('under_construction.html', title='Site Under Construction', description='Site not ready', nav=nav)
+    return render_template('under_construction.html', title='Site Under Construction', description='Site not ready', nav=nav, user=current_user)
 
 
 @app.route('/update_income_expenses', methods=['POST'])
 @login_required
 def update_income_expenses():        
-        
     incomeJson = json.loads(request.form["income"])
     expenseJson = json.loads(request.form["expense"])      
-
+    print(incomeJson)
+    print(expenseJson)
     budget = Budgets.objects(user_id=current_user.get_id(), id=request.form["budget_id"]).first()               
-
+    #Check if there are any objects like income or expenses, if there isn't any, They should be created with the data delivered.
     budget.budget_items.fill_list_income_expenses_from_json('incomeItems', incomeJson)
     budget.budget_items.fill_list_income_expenses_from_json('expenseItems', expenseJson)
     budget.save()

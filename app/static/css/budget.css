@@ -8,6 +8,18 @@
     padding-bottom: 20px;
 }
 
+.menu-button{
+    width: 10px;
+    height: auto;
+    padding-left: 10px;
+    background: lightgrey;
+    padding-bottom: 5px;
+    padding-right: 24px;
+    padding-top: 10px;
+}
+
+
+
 .top-padding{
     padding-top: 10px;
 }
