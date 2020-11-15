@@ -1,3 +1,46 @@
+.bugdet-details{
+    background-color: beige;
+}
+
+.detail-nav{
+    background-color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+}
+
+.detail-nav > div > ul > li{
+    width: auto;
+    height: 38px;
+}
+
+.detail-nav > div > ul > li > h5{
+    font-weight: bold;
+    color: white;
+    text-align: justify;
+    vertical-align: middle;    
+    padding: 7px 7px 7px 7px;
+    border-radius: 5px;
+    background-color: #424441;    
+    margin-left: 10px;
+}
+
+.detail-nav > div > ul > li > h5:hover{
+    background-color: dimgrey;
+}
+
+.details-box{
+    padding: 10px 10px 10px 10px;
+    margin-left: 10px;
+}
+
+.description-box{
+    background-color: aliceblue;
+    height: 100px;
+    width: 300px;
+    border-radius: 10px;
+}
+
 .card-header-custom{
     padding-top: 3px;
     padding-bottom: 3px;

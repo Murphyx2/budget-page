@@ -2,44 +2,52 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="../static/css/unique_budget.css">
 
-<div class="card">
-    <div class="card-header ">
-        <h4><strong>{{ budget.title }}</strong></h4>
-        <div class="container">                        
+
+    <div class="navbar detail-nav navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <div class="navbar-nav-scroll">
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+                <li class="nav-item">
+                    <h5>{{budget.title}}</h5>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <div class="bugdet-details">
+        
             <div class="row">
                 <div class="col">                    
-                    <div class="row">                
-                        <div class="col-3">                    
+                    <div class="row details-box">                
+                        <div class="col-2">                    
                             <div>
                                 <label><strong>Description</strong></label>
-                                <p>  {{ budget.description }}</p>
-                                <label><strong>Date Created</strong></label>
-                                <p> {{ budget.date_created }} </p>                            
+                                <p class="description-box">  {{ budget.description }}</p>                         
                             </div>                            
                         </div>
+                        <div class="clear-fix"></div>
                         <div class ="col-3">                            
                             <div> 
                                 <h5>Total Expenses</h5>
-                                <label><strong>Total Planned Amount</strong></label>
-                                <p>  {{ budget.total_expenses_planned_amount }}</p>
-                                <label><strong>Total Actual Amount</strong></label>
-                                <p>  {{ budget.total_expenses_actual_amount }}</p>
+                                <p><label><strong>Total Planned Amount:</strong></label> {{ budget.total_expenses_planned_amount }}</p>
+                                <p><label><strong>Total Actual Amount:</strong></label>  {{ budget.total_expenses_actual_amount }}</p>
                             </div>  
                         </div>
-                        <div class="col-3">                            
+                        <div class="col-2">                            
                             <div> 
                                 <h5 >Total Income</h5>
-                                <label><strong>Total Planned Amount</strong></label>
-                                <p>  {{ budget.total_income_planned_amount }}</p>                                                        
-                                <label><strong>Total Actual Amount</strong></label>
-                                <p>  {{ budget.total_income_actual_amount }}</p>
+                                <p><label><strong>Total Planned Amount</strong></label>  {{ budget.total_income_planned_amount }}</p>                                                        
+                                <p><label><strong>Total Actual Amount</strong></label> {{ budget.total_income_actual_amount }}</p>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div>                
             </div>            
         </div>
     </div>
+
+    <div class="card">
+        <div class="card-header "></div>
     <div class="card-body">
         <div class="container tables-box">
             <div class="">
