@@ -29,14 +29,14 @@
                         <div class="clear-fix"></div>
                         <div class ="col-3">                            
                             <div> 
-                                <h5>Total Expenses</h5>
+                                <h5 class="title-totals">Total Expenses</h5>
                                 <p><label><strong>Total Planned Amount:</strong></label> {{ budget.total_expenses_planned_amount }}</p>
                                 <p><label><strong>Total Actual Amount:</strong></label>  {{ budget.total_expenses_actual_amount }}</p>
                             </div>  
                         </div>
                         <div class="col-2">                            
                             <div> 
-                                <h5 >Total Income</h5>
+                                <h5 class="title-totals">Total Income</h5>
                                 <p><label><strong>Total Planned Amount</strong></label>  {{ budget.total_income_planned_amount }}</p>                                                        
                                 <p><label><strong>Total Actual Amount</strong></label> {{ budget.total_income_actual_amount }}</p>
                             </div>
@@ -46,8 +46,7 @@
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-header "></div>
+    <div class="card">        
     <div class="card-body">
         <div class="container tables-box">
             <div class="">
@@ -55,10 +54,8 @@
                     <button id="editButton" type="button"  class="btn btn-success" value="0" onclick="toggle_button_visibility()">Edit</button>                            
                 </div>
                 <div class="row">
-                    <div class="col">                                                 
-                        <button id="expenseAddButton" type="button" class="btn float-right addbutton " onclick="create_newrow('expense')">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M13.25 2.5H2.75a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25zM2.75 1h10.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 15H2.75A1.75 1.75 0 011 13.25V2.75C1 1.784 1.784 1 2.75 1zM8 4a.75.75 0 01.75.75v2.5h2.5a.75.75 0 010 1.5h-2.5v2.5a.75.75 0 01-1.5 0v-2.5h-2.5a.75.75 0 010-1.5h2.5v-2.5A.75.75 0 018 4z"></path></svg>
-                        </button>
+                    <div class="col">   
+                        <a role="button" id="expenseAddButton" class="btn float-right addbutton" onclick="create_newrow('expense')"><i class="fas fa-plus addbutton-icon"></i></a>
                         <table class="unique-budget-table" id="expenseTable"> 
                             <tread>
                                 <tr class="table-header"> 
@@ -77,8 +74,10 @@
                                         <td id="expense_planned_amount_{{loop.index - 1}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{expense.planned_amount}}</td>
                                         <td id="expense_actual_amount_{{loop.index - 1}}" >{{expense.actual_amount}}</td>                    
                                         <td id="expense_difference_{{loop.index - 1}}">{{expense.planned_amount - expense.actual_amount }}</td>
-                                        <td class="remove-button-cell">                                            
-                                            <a role="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt" onclick="remove_row('expenseRow_{{loop.index - 1}}')"></i></a>
+                                        <td class="remove-button-cell" >
+                                            <div onclick="remove_row('expenseRow_{{loop.index - 1}}')">
+                                                <a role="button" class="btn btn-danger btn-sm" ><i class="fas fa-trash-alt"></i></a>
+                                            </div>
                                         </td>
                                     </tr>           
                                 {% endfor %}                    
@@ -86,9 +85,7 @@
                         </table>
                     </div> 
                     <div class="col">                                                
-                        <button id="incomeAddButton" type="button" class="btn float-right" onclick="create_newrow('income')">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M13.25 2.5H2.75a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25zM2.75 1h10.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 15H2.75A1.75 1.75 0 011 13.25V2.75C1 1.784 1.784 1 2.75 1zM8 4a.75.75 0 01.75.75v2.5h2.5a.75.75 0 010 1.5h-2.5v2.5a.75.75 0 01-1.5 0v-2.5h-2.5a.75.75 0 010-1.5h2.5v-2.5A.75.75 0 018 4z"></path></svg>
-                        </button>                        
+                        <a role="button" id="incomeAddButton" class="btn float-right addbutton " onclick="create_newrow('income')"><i class="fas fa-plus addbutton-icon"></i></a>
                         <table class="unique-budget-table" id="incomeTable"> 
                             <tread>
                                 <tr class="table-header"> 
@@ -107,8 +104,10 @@
                                         <td id="income_planned_amount_{{loop.index - 1}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{income.planned_amount}}</td>
                                         <td id="income_actual_amount_{{loop.index - 1}}">{{income.actual_amount}}</td>                   
                                         <td id="income_difference_{{loop.index - 1}}">{{income.planned_amount - income.actual_amount}}</td>
-                                        <td class="remove-button-cell">                                            
-                                            <a role="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt" onclick="remove_row('incomeRow_{{loop.index - 1}}')"></i></a>
+                                        <td class="remove-button-cell" >
+                                            <div onclick="remove_row('incomeRow_{{loop.index - 1}}')">
+                                                <a role="button" class="btn btn-danger btn-sm" ><i class="fas fa-trash-alt" ></i></a>
+                                            </div>
                                         </td>
                                     </tr>           
                                 {% endfor %}                    
@@ -129,6 +128,4 @@
     </div>
 </div>
 
-<script type='text/javascript' src='../static/js/unique_budget.js'></script>
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 {% endblock %}

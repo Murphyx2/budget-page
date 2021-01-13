@@ -132,8 +132,6 @@ function remove_row(row_id){
 }
 
 
-
-
 function toggle_button_visibility(){    
     var editButton = document.getElementById("editButton");
     //Ask for one, but affect both add and remove buttons
@@ -164,9 +162,9 @@ function toggle_button_visibility(){
         editButton.value = 0;       
 
         SaveButton.style.display = "none";        
-        CancelButton.style.display = "none";
-        
-    }    
+        CancelButton.style.display = "none";                
+        location.reload()
+    }        
     
 }
 
@@ -196,14 +194,22 @@ document.querySelector('#SaveButton').addEventListener('click', function(event){
     formData.append("income",incomeItems);
     formData.append("expense",expenseItems);
 
+    xhttp.open("POST", "/update_income_expenses", true);
+    xhttp.send(formData);    
     xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
             alert("Saved");
         }
-    };
-    xhttp.open("POST", "/update_income_expenses", true);
-    xhttp.send(formData);
-    toggle_button_visibility()            
+        console.log(this.readyState);
+    };    
+    toggle_button_visibility();    
+});
+
+
+//Capture event Cancel Button 
+document.querySelector('#CancelButton').addEventListener('click', function(event){    
+    //I prefer to reload the page instead of resenting the states of every element.
+    location.reload();          
 })
 
 

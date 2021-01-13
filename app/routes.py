@@ -100,15 +100,12 @@ def under_construction():
 def update_income_expenses():        
     incomeJson = json.loads(request.form["income"])
     expenseJson = json.loads(request.form["expense"])      
-    print(incomeJson)
-    print(expenseJson)
     budget = Budgets.objects(user_id=current_user.get_id(), id=request.form["budget_id"]).first()               
     #Check if there are any objects like income or expenses, if there isn't any, They should be created with the data delivered.
     budget.budget_items.fill_list_income_expenses_from_json('incomeItems', incomeJson)
     budget.budget_items.fill_list_income_expenses_from_json('expenseItems', expenseJson)
     budget.save()
-    budget.reload()
-    
+    budget.reload()    
     return redirect(url_for('budget',budget_id=budget.id))
 
 

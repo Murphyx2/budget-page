@@ -50,6 +50,10 @@
     height: 130px;
 }
 
+.title-totals{
+    font-weight: bold;
+}
+
 .header-col-font{
     font-size: 10px;
 }
@@ -58,10 +62,15 @@
     width: 100%;
 }
 
-.addbutton{    
-    padding-left: 16px;
-    padding-right: 16px;
+.addbutton {        
+    background-color:wheat;        
 }
+
+.addbutton-icon{
+    font-size: 10px;
+    color: black;
+}
+
 
 table, tr, th{
     border: 1px solid black;

@@ -123,6 +123,11 @@ class Budgets(db.Document):
         self.title = title        
         self.date_created = date_created
         self.description = description
+        self.budget_items = Budget_Item()
+        self.total_expenses_planned_amount = 0.0
+        self.total_expenses_actual_amount = 0.0
+        self.total_income_planned_amount = 0.0
+        self.total_income_actual_amount = 0.0
 
 
 

@@ -1,6 +1,30 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <div class="container">
-        <h1>Site Under Construction</h1>    
+    <div class="transactions_section">
+        <h1>Budget xx</h1>
+        <div class="row">
+            <div class="col-6 expenses">
+                <h1>Expenses</h1>
+                <table class="expense_transaction_table">
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                    </tr>
+                </table>
+            </div>
+            <div class=" col-6 income">
+                <h1>Income</h1>
+                <table class="income_transaction_table">
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                    </tr>
+                </table>
+            </div>
+        </div>        
     </div>
 {% endblock %}
