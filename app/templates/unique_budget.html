@@ -59,17 +59,17 @@
                         <table class="unique-budget-table" id="expenseTable"> 
                             <tread>
                                 <tr class="table-header"> 
-                                    <th class="table-header-title" colspan="4">Expense</th>
-                                    <th rowspan="2" class="addbutton-cell"> 
-                                        <div class="addbutton-position">
-                                            <a role="button" id="expenseAddButton" class="btn float-right addbutton" onclick="create_newrow('expense')"><i class="fas fa-plus addbutton-icon"></i></a>
-                                        </div>
-                                    </th>
+                                    <th class="table-header-title" colspan="4">Expense</th>                                    
                                 </tr>     
                                 <tr>
                                     {% for title in titles %}
                                         <th>{{title}}</th>
                                     {% endfor %}
+                                    <th class="addbutton-cell">                                         
+                                            <a role="button" id="expenseAddButton" class="btn float-right addbutton" onclick="create_newrow('expense')">
+                                                <i class="fas fa-plus addbutton-icon"></i>
+                                            </a>                                        
+                                    </th>
                                 </tr>
                             </tread>   
                             <tbody>
@@ -95,17 +95,15 @@
                         <table class="unique-budget-table" id="incomeTable"> 
                             <tread>
                                 <tr class="table-header"> 
-                                    <th class="table-header-title" colspan="4">Income</th> 
-                                    <th rowspan="2" class="addbutton-cell"> 
-                                        <div class="addbutton-position">
-                                            <a role="button" id="incomeAddButton" class="btn float-right addbutton " onclick="create_newrow('income')"><i class="fas fa-plus addbutton-icon"></i></a>
-                                        </div>
-                                    </th>
+                                    <th class="table-header-title" colspan="4">Income</th>                                     
                                 </tr>     
                                 <tr>
                                     {% for title in titles %}
                                         <th>{{title}}</th>
                                     {% endfor %}
+                                    <th class="addbutton-cell">                                         
+                                            <a role="button" id="incomeAddButton" class="btn float-right addbutton" onclick="create_newrow('income')"><i class="fas fa-plus addbutton-icon"></i></a>                                        
+                                    </th>
                                 </tr>  
                             </tread>   
                             <tbody>

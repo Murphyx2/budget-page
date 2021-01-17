@@ -1,3 +1,8 @@
+.unique-budget-table{
+    width: 570px;
+    height: 323px;
+}
+
 .bugdet-details{
     background-color: beige;
 }
@@ -6,7 +11,7 @@
     background-color: black;
     padding-top: 10px;
     padding-bottom: 10px;
-    
+
 }
 
 .detail-nav > div > ul > li{
@@ -65,11 +70,17 @@
 .addbutton-cell{    
     border-right: hidden;    
     border-top: hidden;
+    padding: 5px 5px 5px 5px;
+    max-width: 58.88px;
 }
 
-.addbutton-position{        
-    position: relative;
-    right: 15%;
+.addbutton-position{            
+    position: relative;    
+    top: 10%;
+    left: 50%;
+    height: 50%;    
+    box-sizing: content-box; 
+    padding: 5px 5px 5px 5px;
 }
 
 .addbutton {        
@@ -81,11 +92,15 @@
     padding-right: 15px;
     box-sizing: content-box;    
     border-radius: 25%;   
+    position: relative;  
+    right: 26%;  
 }
 
 .addbutton-icon{
     position: relative;
-    top: 50%;
+    font-size: 10px;
+    color: black;
+    top: -136%;
     left: 50%;
     height: 50%;
     transform: translate(-50%, -50%);
