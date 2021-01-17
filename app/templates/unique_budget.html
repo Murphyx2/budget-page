@@ -55,41 +55,52 @@
                 </div>
                 <div class="row">
                     <div class="col">   
-                        <a role="button" id="expenseAddButton" class="btn float-right addbutton" onclick="create_newrow('expense')"><i class="fas fa-plus addbutton-icon"></i></a>
+                        <div class="row">
                         <table class="unique-budget-table" id="expenseTable"> 
                             <tread>
                                 <tr class="table-header"> 
                                     <th class="table-header-title" colspan="4">Expense</th>
+                                    <th rowspan="2" class="addbutton-cell"> 
+                                        <div class="addbutton-position">
+                                            <a role="button" id="expenseAddButton" class="btn float-right addbutton" onclick="create_newrow('expense')"><i class="fas fa-plus addbutton-icon"></i></a>
+                                        </div>
+                                    </th>
                                 </tr>     
                                 <tr>
                                     {% for title in titles %}
                                         <th>{{title}}</th>
                                     {% endfor %}
-                                </tr>  
+                                </tr>
                             </tread>   
                             <tbody>
                                 {% for expense in budget.budget_items.expense %}
-                                    <tr id="expenseRow_{{loop.index - 1}}">                    
+                                    <tr id="expenseRow_{{loop.index - 1}}"> 
                                         <td id="expense_name_{{loop.index - 1}}" contenteditable="false">{{expense.name}}</td>
                                         <td id="expense_planned_amount_{{loop.index - 1}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{expense.planned_amount}}</td>
                                         <td id="expense_actual_amount_{{loop.index - 1}}" >{{expense.actual_amount}}</td>                    
                                         <td id="expense_difference_{{loop.index - 1}}">{{expense.planned_amount - expense.actual_amount }}</td>
-                                        <td class="remove-button-cell" >
-                                            <div onclick="remove_row('expenseRow_{{loop.index - 1}}')">
-                                                <a role="button" class="btn btn-danger btn-sm" ><i class="fas fa-trash-alt"></i></a>
-                                            </div>
+                                        <td id="remove_button_expense{{loop.index - 1}}" class="remove-button-cell">                                            
+                                                <a role="button" class="btn btn-danger remove-button" onclick="remove_row('expenseRow_{{loop.index - 1}}')">
+                                                    <i class="fas fa-trash-alt remove-button-icon"></i>
+                                                </a>
                                         </td>
                                     </tr>           
                                 {% endfor %}                    
                             </tbody>
                         </table>
+                    </div>
                     </div> 
-                    <div class="col">                                                
-                        <a role="button" id="incomeAddButton" class="btn float-right addbutton " onclick="create_newrow('income')"><i class="fas fa-plus addbutton-icon"></i></a>
+                    <div class="col">          
+                        <div class="row">
                         <table class="unique-budget-table" id="incomeTable"> 
                             <tread>
                                 <tr class="table-header"> 
                                     <th class="table-header-title" colspan="4">Income</th> 
+                                    <th rowspan="2" class="addbutton-cell"> 
+                                        <div class="addbutton-position">
+                                            <a role="button" id="incomeAddButton" class="btn float-right addbutton " onclick="create_newrow('income')"><i class="fas fa-plus addbutton-icon"></i></a>
+                                        </div>
+                                    </th>
                                 </tr>     
                                 <tr>
                                     {% for title in titles %}
@@ -104,15 +115,16 @@
                                         <td id="income_planned_amount_{{loop.index - 1}}" contenteditable="false" onkeypress="return isNumberKey(event)">{{income.planned_amount}}</td>
                                         <td id="income_actual_amount_{{loop.index - 1}}">{{income.actual_amount}}</td>                   
                                         <td id="income_difference_{{loop.index - 1}}">{{income.planned_amount - income.actual_amount}}</td>
-                                        <td class="remove-button-cell" >
-                                            <div onclick="remove_row('incomeRow_{{loop.index - 1}}')">
-                                                <a role="button" class="btn btn-danger btn-sm" ><i class="fas fa-trash-alt" ></i></a>
-                                            </div>
+                                        <td id="remove_button_expense{{loop.index - 1}}" class="remove-button-cell " >                                            
+                                                <a role="button" class="btn btn-danger remove-button" onclick="remove_row('incomeRow_{{loop.index - 1}}')">
+                                                    <i class="fas fa-trash-alt remove-button-icon" ></i>
+                                                </a>                                            
                                         </td>
                                     </tr>           
                                 {% endfor %}                    
                             </tbody>
-                        </table>                        
+                        </table>    
+                    </div>                                                        
                     </div>   
                 </div>
                 <div class="row">

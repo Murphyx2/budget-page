@@ -12,7 +12,7 @@ import json
 from app import testingDataCreator
 
 nav = [{'name':'Home', 'url':'/home'},  
-        {'name':'Transactions','url':'/transactions'},
+        #{'name':'Transactions','url':'/transactions'},
         {'name':'Budget','url':'/budget'},
         {'name':'About','url':'/about'},                
         ]
@@ -36,7 +36,8 @@ def login():
             flash('Invalid Username or password')
             return redirect(url_for('login'))                    
         login_user(user, remember=form.remember_me.data)
-        #flash('Welcome {name} {lastname}'.format(name=current_user.first_name, lastname=current_user.last_name))        
+        #Insert Navegation items into the nav list. Need of a function to handle this case.
+        nav.insert(1,{'name':'Transactions','url':'/transactions'})        
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign in or Register', form=form, nav = nav)
 
@@ -86,6 +87,7 @@ def register():
 
 
 @app.route('/transactions', methods=['GET','POST'])
+@login_required
 def transactions():
     return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user)
 
@@ -116,8 +118,10 @@ def not_found(*args):
 
 @app.route('/logout')
 @login_required
-def logout():
+def logout():    
     logout_user()
+    #Need to add a function to handle this
+    #del nav[1]
     return redirect(url_for('index'))
 
 
