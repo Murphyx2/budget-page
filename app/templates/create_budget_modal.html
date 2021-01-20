@@ -1,4 +1,4 @@
-<div class="modal fade" id="newBudget" tabindex="-1" role="dialog" aria-labelledby="newBudgetLabel" aria-hidden="true">
+<div class="modal fade" id="newBudget" tabindex="-1" role="dialog" aria-labelledby="newBudgetLabel" aria-hidden="true" >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -20,9 +20,9 @@
               {{ form.description(class_="form-control")}}
             </div>
             <div class="modal-footer">
-              <div class='col text-right'>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                {{ form.submit(class_='btn btn-primary') }}
+              <div class='col text-right'>                
+                {{ form.submit(class_='btn btn-primary', value='Create')}}                            
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>                
               </div>
             </div>
           </form>

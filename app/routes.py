@@ -54,10 +54,12 @@ def about():
 @login_required
 def budget():    
     form = createBugdetForm(request.form)    
-    budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')  
+    budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')
     #Validation messages are missed, Must be added in the future    
+    print(form.validate())
     if request.method == 'POST' and form.validate():                
         budget = Budgets()
+        print("Creating a budget")
         budget.create_budget(current_user.get_id(),form.title.data,  datetime.utcnow(), form.description.data)                
         budget.save()        
         redirect(url_for('budget',make_response='GET'))          
