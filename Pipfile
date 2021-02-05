@@ -11,9 +11,9 @@ flask-wtf = "~=0.14.3"
 flask-login = "~=0.5.0"
 flask-sqlalchemy = "~=2.4.2"
 email-validator = "~=1.1.1"
-pytest = "~=5.4.2"
 flask-mongoengine = "~=0.9.5"
 python-dotenv = "*"
+flask-pytest = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,12 +1,45 @@
-#import sys
+from flask import Flask, config
+from flask.wrappers import Response
+
+import sys
 # insert at 1, 0 is the script path (or '' in REPL)
-#sys.path.insert(1, 'D:/Programing/Developments/Python/Flask_Developments/BudgetPage')
+sys.path.insert(1, 'D:/Programing/Developments/Python/Flask_Developments/BudgetPage')
 
-from app.models import Users, Budgets, Budget_Item, Income_Expense
-from app import db
+from app import app
+from app import routes
+from app import models
 
-def create_testing_date(budget):    
-    budget_item = Budget_Item()
+
+#class TestRoutes():
+
+def test_index():
+
+    client = app.test_client()
+    url = '/home'
+    response = client.get(url)                
+    assert response.status_code == 200
+
+def test_about():
+
+    client = app.test_client()
+    url = '/about'
+    response = client.get(url)                
+    assert response.status_code == 200
+
+#This test should fail
+def test_index_404():
+
+    client = app.test_client()
+    url = '/'
+    response = client.get(url)                
+    assert response.status_code == 404
+
+
+#This fixture needs to be worked in a way more suitable for the tests.
+@pytest.fixture
+def example_budget_data():
+    budget_item = Budget_Item()    
+    
     income1 = Income()
     income1.set_values("Paycheck", 35000.0,70000.0)
 
@@ -46,5 +79,5 @@ def create_testing_date(budget):
 
     budget.set_total_income_planned_amount(82000.0)
     budget.set_total_income_actual_amount(40200.0)
-    budget.set_budget_items(budget_item)
-    budget.save()
+    budget.set_budget_items(budget_item)    
+

@@ -2,8 +2,6 @@ var DEFAULT_ROW_HEIGHT = "2em";
 var INCOME_NUMBER_ROW  = 0;
 var EXPENSE_NUMBER_ROW  = 0;
 
-
-
 // Expense table event Listener
 var expenseTable = document.querySelector('#expenseTable');
 

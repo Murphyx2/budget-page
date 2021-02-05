@@ -14,7 +14,7 @@ class ContactForm(FlaskForm):
     email = StringField('Email', [
         Email(message=('Not a valid email address.')),
         DataRequired()])
-    body = TextField('Message', [
+    body = StringField('Message', [
         DataRequired(), 
         Length(min=4, message=('Your message is too short.'))])
     recaptcha = RecaptchaField()

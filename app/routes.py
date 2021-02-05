@@ -55,8 +55,7 @@ def about():
 def budget():    
     form = createBugdetForm(request.form)    
     budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')
-    #Validation messages are missed, Must be added in the future    
-    print(form.validate())
+    #Validation messages are missed, Must be added in the future        
     if request.method == 'POST' and form.validate():                
         budget = Budgets()
         print("Creating a budget")
