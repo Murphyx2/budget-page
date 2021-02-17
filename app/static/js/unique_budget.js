@@ -31,34 +31,32 @@ incomeTable.addEventListener('click', function(event){
 function create_newrow(tableName){
     var completeTableName = tableName+'Table'
     var MAX_CELL_NUMBER = 5;
-    var TAG_ID_ELEMENTS = [tableName+"_name", tableName+"_planned_amount", tableName+"_actual_amount", tableName+"_difference"]
+    var TAG_ID_ELEMENTS = [tableName+"_name_", tableName+"_planned_amount_", tableName+"_actual_amount_", tableName+"_difference_", tableName+"_remove_button_"]
     var COUNT_ROWS_TABLE_ELEMENTS = document.getElementById(completeTableName).getElementsByTagName('tbody').length -1;
     var table = document.getElementById(completeTableName).getElementsByTagName('tbody')[COUNT_ROWS_TABLE_ELEMENTS];
     
     var last_row_number = table.rows.length;
     var newRow = table.insertRow(last_row_number);
     
-    var row_id = tableName + "Row_"+ (last_row_number + 1);
+    var row_id = tableName + "Row_"+ (last_row_number);
     
-    newRow.setAttribute("id", row_id);
-    newRow.style.height = DEFAULT_ROW_HEIGHT;
+    newRow.setAttribute("id", row_id);    
 
     for (var count = 0; count < MAX_CELL_NUMBER ; count++) {
             var newCell = newRow.insertCell(count);
-            newCell.setAttribute("id",TAG_ID_ELEMENTS[count] + (last_row_number + 1));
-            
+            newCell.setAttribute("id",TAG_ID_ELEMENTS[count] + (last_row_number));
             //You can only edit the name or the planned amount
             if(TAG_ID_ELEMENTS[count] === TAG_ID_ELEMENTS[0]){
                 newCell.setAttribute("contenteditable","true");
 
             }else if(TAG_ID_ELEMENTS[count] === TAG_ID_ELEMENTS[1]){
                 newCell.setAttribute("contenteditable","true");
-                newCell.setAttribute("onkeypress", 'return isNumberKey(event)');                
+                newCell.setAttribute("onkeypress", 'return isNumberKey(event)'); 
             }
 
         //Add remove button
         if(count === MAX_CELL_NUMBER-1){
-            addRemoveButtonCell(newCell,row_id);
+            addRemoveButtonCell(newCell, row_id);
         }
 
     }
@@ -73,17 +71,19 @@ function create_newrow(tableName){
 
 //Add remove button to Cell
 function addRemoveButtonCell(cell, row_id){
+    cell.classList.add("remove-button-cell");
+
     var iTag = document.createElement("i");                
     iTag.classList.add("fas","fa-trash-alt");
     var aTag = document.createElement("a");
     aTag.setAttribute("role","button");
-    aTag.classList.add("btn", "btn-danger", "btn-sm");
-    aTag.appendChild(iTag);
-    cell.classList.add("remove-button-cell");
+    aTag.classList.add("btn", "btn-danger", "remove-button");
+    aTag.setAttribute("onclick","remove_row('"+ row_id +"')");
+    aTag.appendChild(iTag);    
     cell.appendChild(aTag);
     cell.style.visibility = "visible";
     iTag.style.visibility = "visible";
-    iTag.setAttribute("onclick","remove_row('"+ row_id +"')");
+    
 }
 
 

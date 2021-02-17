@@ -1,30 +1,17 @@
 from flask import Flask, config
 from flask.wrappers import Response
-
+from flask import redirect, url_for
 import sys
+
+from werkzeug.test import Client
 # insert at 1, 0 is the script path (or '' in REPL)
 sys.path.insert(1, 'D:/Programing/Developments/Python/Flask_Developments/BudgetPage')
 
 from app import app
 from app import routes
 from app import models
+from app.forms import LoginForm 
 
-
-#class TestRoutes():
-
-def test_index():
-
-    client = app.test_client()
-    url = '/home'
-    response = client.get(url)                
-    assert response.status_code == 200
-
-def test_about():
-
-    client = app.test_client()
-    url = '/about'
-    response = client.get(url)                
-    assert response.status_code == 200
 
 #This test should fail
 def test_index_404():
@@ -34,9 +21,28 @@ def test_index_404():
     response = client.get(url)                
     assert response.status_code == 404
 
+def test_index_route():
+
+    client = app.test_client()
+    url = '/home'
+    response = client.get(url)                
+    assert response.status_code == 200
+
+def test_about_route():
+
+    client = app.test_client()
+    url = '/about'
+    response = client.get(url)                
+    assert response.status_code == 200
+
+def test_login_route():
+    client = app.test_client()
+    url = '/login'
+    response  = client.get(url)
+    assert response.status_code == 200
+
 
 #This fixture needs to be worked in a way more suitable for the tests.
-@pytest.fixture
 def example_budget_data():
     budget_item = Budget_Item()    
     
