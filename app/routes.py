@@ -12,7 +12,7 @@ import json
 from app import testingDataCreator
 
 nav = [{'name':'Home', 'url':'/home'},  
-        #{'name':'Transactions','url':'/transactions'},
+        {'name':'Transactions','url':'/transactions'},
         {'name':'Budget','url':'/budget'},
         {'name':'About','url':'/about'},                
         ]
@@ -37,7 +37,7 @@ def login():
             return redirect(url_for('login'))                    
         login_user(user, remember=form.remember_me.data)
         #Insert Navegation items into the nav list. Need of a function to handle this case.
-        nav.insert(1,{'name':'Transactions','url':'/transactions'})        
+        #nav.insert(1,{'name':'Transactions','url':'/transactions'})        
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign in or Register', form=form, nav = nav)
 
@@ -90,7 +90,11 @@ def register():
 @app.route('/transactions', methods=['GET','POST'])
 @login_required
 def transactions():
-    return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user)
+    #Get list of budgets by date desc
+    budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')
+    #Get all the transaction from that budget
+    transactions = 
+    return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user, budgetsList=budgets)
 
 
 @app.route('/under_construction')
