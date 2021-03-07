@@ -130,9 +130,11 @@ class Budgets(db.Document):
         self.total_income_actual_amount = 0.0
 
 
-class transactions(db.Document):
+class Transactions(db.Document):
     user_id = db.StringField(max_length=100)
+    budget_id = db.StringField(max_length=100)
     description = db.StringField(max_length=300)
     type = db.StringField(max_length=20)
     category = db.StringField(max_length=20)
-    
+    amount = db.DecimalField()
+    date_created= db.DateTimeField()

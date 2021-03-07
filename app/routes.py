@@ -1,6 +1,6 @@
 from app import app
 from app.forms import LoginForm, ContactForm, createBugdetForm
-from app.models import Users, Budgets, Budget_Item, Income_Expense
+from app.models import Users, Budgets, Transactions
 from app import db
 from flask import render_template, flash, redirect, url_for, make_response, flash, request
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
@@ -92,9 +92,11 @@ def register():
 def transactions():
     #Get list of budgets by date desc
     budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')
-    #Get all the transaction from that budget
-    transactions = 
-    return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user, budgetsList=budgets)
+    #Get all the transaction from that budget    
+    incomeTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budgets[0].id), type="income")
+    expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budgets[0].id), type="expense")    
+    return render_template('transactions.html', title='Transactions', description='Register your transactions here', 
+        nav=nav, user=current_user, budgetsList=budgets, incomeTransactions=incomeTransactions, expenseTransactions=expensesTransactions)
 
 
 @app.route('/under_construction')
