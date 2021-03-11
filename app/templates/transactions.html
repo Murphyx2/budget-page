@@ -1,63 +1,17 @@
 {% extends 'layout.html' %}
 {% block content %}
+    <link rel="stylesheet" type="text/css" href="../static/css/transactions.css">
     <div class="transactions_section">
-        <div>
-            <form>
-                <label>Budget:</label> 
-                <select name="budget_list" id="budget_list">                
-                    {% for budget in budgetsList %}        
-                        <option value="{{budget.user_id}}">{{budget.title}}</option>
-                    {% endfor %}
-                </select>
-            </form>
+        <div>            
+            <label>Budget:</label> 
+            <select name="budget_list" id="budget_list">                
+                {% for budget in budgetsList %}        
+                    <option value="{{budget.id}}">{{budget.title}}</option>
+                {% endfor %}
+            </select>            
         </div>
-        <div class="row">
-            <div class="col-6 expenses">
-                <h1>Expenses</h1>
-                <table class="expense_transaction_table">
-                    <tread>
-                        <tr>
-                            <th class="table-header-title">Date</th>
-                            <th class="table-header-title">Amount</th>
-                            <th class="table-header-title">Description</th>
-                            <th class="table-header-title">Category</th>
-                        </tr>
-                    </tread>
-                    <tbody>
-                        {% for transaction in expenseTransactions %}
-                            <tr>
-                                <td>{{ transaction.date_created}}</td>
-                                <td>{{ transaction.amount }}</td>
-                                <td>{{ transaction.description }}</td>
-                                <td>{{ transaction.category }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class=" col-6 income">
-                <h1>Income</h1>
-                <table class="income_transaction_table">
-                    <tread>                    
-                        <tr>
-                            <th class="table-header-title">Date</th>
-                            <th class="table-header-title">Amount</th>
-                            <th class="table-header-title">Description</th>
-                            <th class="table-header-title">Category</th>
-                        </tr>
-                    </tread>
-                    <tbody>
-                        {% for transaction in incomeTransactions %}
-                            <tr>
-                                <td>{{ transaction.date_created }}</td>
-                                <td>{{ transaction.amount }}</td>
-                                <td>{{ transaction.description }}</td>
-                                <td>{{ transaction.category }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>        
-    </div>
+        <div class="row">            
+            <iframe id="expenseIframe" src="/expenseTransaction/{{ budgetsList[0].id }}" class="expense_iframe"></iframe>
+            <iframe id="incomeIframe" src="/incomeTransaction/{{ budgetsList[0].id }}" class="income_iframe"></iframe>            
+    <script type='text/javascript' src='../static/js/transactions.js'></script>
 {% endblock %}

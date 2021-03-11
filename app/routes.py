@@ -7,6 +7,7 @@ from flask_login import current_user, login_user, logout_user, login_required, L
 from datetime import datetime
 
 import json
+from bson import ObjectId
 
 #Module to create testing date
 from app import testingDataCreator
@@ -87,17 +88,24 @@ def register():
     #return render_template('register.html', title='Sign in or Register', description='Want to register?', nav=nav)
 
 
-@app.route('/transactions', methods=['GET','POST'])
+@app.route('/transactions/', methods=['GET'])
 @login_required
-def transactions():
-    #Get list of budgets by date desc
+def transactions(budget_id = None):    
+    #Find all the budgets for this user    
     budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')
-    #Get all the transaction from that budget    
-    incomeTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budgets[0].id), type="income")
-    expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budgets[0].id), type="expense")    
-    return render_template('transactions.html', title='Transactions', description='Register your transactions here', 
-        nav=nav, user=current_user, budgetsList=budgets, incomeTransactions=incomeTransactions, expenseTransactions=expensesTransactions)
+    return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user, budgetsList=budgets)
 
+@app.route('/incomeTransaction/<budget_id>', methods=['GET'])
+@login_required
+def incomeTransaction(budget_id = None):
+    incomeTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="income")
+    return render_template('incomeTransaction.html', incomeTransactions=incomeTransactions) 
+
+@app.route('/expenseTransaction/<budget_id>', methods=['GET'])
+@login_required
+def expenseTransaction(budget_id = None):
+    expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="expense") 
+    return render_template('expenseTransaction.html', expenseTransactions=expensesTransactions) 
 
 @app.route('/under_construction')
 def under_construction():

@@ -1,0 +1,24 @@
+<div class=" col-6 income">
+    <h1>Income</h1>
+    <table class="income_transaction_table">
+        <tread>                    
+            <tr>
+                <th class="table-header-title">Date</th>
+                <th class="table-header-title">Amount</th>
+                <th class="table-header-title">Description</th>
+                <th class="table-header-title">Category</th>
+            </tr>
+        </tread>
+        <tbody>
+            {% for transaction in incomeTransactions %}
+                <tr>
+                    <td>{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td>{{ transaction.category }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>  

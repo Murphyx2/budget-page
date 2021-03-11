@@ -1,0 +1,23 @@
+    <div class="col-6 expenses">
+        <h1>Expenses</h1>
+        <table class="expense_transaction_table">
+            <tread>
+                <tr>
+                    <th class="table-header-title">Date</th>
+                    <th class="table-header-title">Amount</th>
+                    <th class="table-header-title">Description</th>
+                    <th class="table-header-title">Category</th>
+                </tr>
+            </tread>
+            <tbody>
+                {% for transaction in expenseTransactions %}
+                    <tr>
+                        <td>{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.description }}</td>
+                        <td>{{ transaction.category }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>

@@ -16,7 +16,7 @@ function offSurface(id) {
 }
 
 function uniqueBudgetUrl(budgetID, id){    
-    location.href="/budget/".concat('',budgetID);               
+    location.href="/budget/".concat('',budgetID);
 };
 
 
