@@ -35,6 +35,7 @@ class Income_Expense(db.EmbeddedDocument):
     actual_amount = db.DecimalField()
     planned_amount = db.DecimalField()         
 
+
     def set_values(self, name, actual_amount = 0.0, planned_amount=0.0):
         self.name = name
         self.actual_amount = actual_amount
@@ -44,9 +45,17 @@ class Income_Expense(db.EmbeddedDocument):
     def set_actual_amount(self, new_actual_amount):
         self.actual_amount = new_actual_amount
 
+
+    def sum_actual_amount(self, new_amount):
+        self.actual_amount+=new_amount
+
     
     def set_planned_amount(self, new_planned_amount):
         self.planned_amount = new_planned_amount
+
+
+    def reset_actual_amount(self):
+        self.actual_amount = 0.0
 
 
 class Budget_Item(db.EmbeddedDocument):
@@ -128,7 +137,19 @@ class Budgets(db.Document):
         self.total_expenses_actual_amount = 0.0
         self.total_income_planned_amount = 0.0
         self.total_income_actual_amount = 0.0
-
+    
+    
+    def add_actual_amount(self, transaction, budget_item_type):
+        if budget_item_type == "income":
+            for index, income in enumerate(self.budget_items.income):
+                if income.name == transaction.category:
+                    self.budget_items.income[index].sum_actual_amount(transaction.amount)
+        else:
+            for index, expense in enumerate(self.budget_items.expense):
+                if expense.name == transaction.category:
+                    self.budget_items.expense[index].sum_actual_amount(transaction.amount)
+        
+        
 
 class Transactions(db.Document):
     user_id = db.StringField(max_length=100)

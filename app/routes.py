@@ -88,20 +88,30 @@ def register():
     #return render_template('register.html', title='Sign in or Register', description='Want to register?', nav=nav)
 
 
-@app.route('/transactions/', methods=['GET'])
+@app.route('/transactions/', methods=['GET', 'POST'])
+@app.route('/transactions/<budget_id>', methods=['GET','POST'])
 @login_required
 def transactions(budget_id = None):    
     #Find all the budgets for this user    
     budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')
-    return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user, budgetsList=budgets)
+    if request.method == 'GET':
+        if budget_id is not None:
+            incomeTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="income")
+            expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="expense")    
+        else:
+            incomeTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budgets[0].id), type="income")
+            expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budgets[0].id), type="expense")    
 
-@app.route('/incomeTransaction/<budget_id>', methods=['GET'])
+    return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user
+    , budgetsList=budgets, expenseTransactions=expensesTransactions, incomeTransactions=incomeTransactions, current_budget_id = budget_id)
+
+@app.route('/incomeTransaction/<budget_id>', methods=['GET', 'POST'])
 @login_required
 def incomeTransaction(budget_id = None):
     incomeTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="income")
     return render_template('incomeTransaction.html', incomeTransactions=incomeTransactions) 
 
-@app.route('/expenseTransaction/<budget_id>', methods=['GET'])
+@app.route('/expenseTransaction/<budget_id>', methods=['GET', 'POST'])
 @login_required
 def expenseTransaction(budget_id = None):
     expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="expense") 

@@ -5,13 +5,68 @@
         <div>            
             <label>Budget:</label> 
             <select name="budget_list" id="budget_list">                
-                {% for budget in budgetsList %}        
-                    <option value="{{budget.id}}">{{budget.title}}</option>
+                {% for budget in budgetsList %} 
+                    {% if current_budget_id == budget.id %}
+                        <option value="{{budget.id}}" selected >{{budget.title}}</option>
+                    {% else %}
+                        <option value="{{budget.id}}">{{budget.title}}</option>
+                    {% endif %}
                 {% endfor %}
             </select>            
         </div>
-        <div class="row">            
-            <iframe id="expenseIframe" src="/expenseTransaction/{{ budgetsList[0].id }}" class="expense_iframe"></iframe>
-            <iframe id="incomeIframe" src="/incomeTransaction/{{ budgetsList[0].id }}" class="income_iframe"></iframe>            
+        <div class="row">
+            <div class="col">
+                <div class="table-space">
+                <h1>Expenses</h1>                
+                    <table class="expense_transaction_table">
+                        <tread>
+                            <tr>
+                                <th class="table-header-title">Date</th>
+                                <th class="table-header-title">Amount</th>
+                                <th class="table-header-title">Description</th>
+                                <th class="table-header-title">Category</th>
+                            </tr>
+                        </tread>
+                        <tbody>
+                            {% for transaction in expenseTransactions %}
+                                <tr>
+                                    <td>{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
+                                    <td>{{ transaction.amount }}</td>
+                                    <td>{{ transaction.description }}</td>
+                                    <td>{{ transaction.category }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col">
+                <div class="table-space">
+                <h1>Income</h1>                
+                    <table class="income_transaction_table">
+                        <tread>                    
+                            <tr>
+                                <th class="table-header-title">Date</th>
+                                <th class="table-header-title">Amount</th>
+                                <th class="table-header-title">Description</th>
+                                <th class="table-header-title">Category</th>
+                            </tr>
+                        </tread>
+                        <tbody>
+                            {% for transaction in incomeTransactions %}
+                                <tr>
+                                    <td id="transaction_date_{{loop.index-1}}"">{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
+                                    <td id="transaction_amount_{{loop.index-1}}">{{ transaction.amount }}</td>
+                                    <td id="transaction_description{{loop.index-1}}">{{ transaction.description }}</td>
+                                    <td id="transaction_category{{loop.index-1}}">{{ transaction.category }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--<iframe id="expenseIframe" src="/expenseTransaction/{{ budgetsList[0].id }}" class="expense_iframe"></iframe>
+            <iframe id="incomeIframe" src="/incomeTransaction/{{ budgetsList[0].id }}" class="income_iframe"></iframe>            -->
+        </div>
     <script type='text/javascript' src='../static/js/transactions.js'></script>
 {% endblock %}

@@ -1,4 +1,8 @@
-<div class=" col-6 income">
+<head>
+    <link rel="stylesheet" type="text/css" href="../static/css/transactions.css">
+</head>
+<body id="income_transaction_section" class=" col-6 income">
+    
     <h1>Income</h1>
     <table class="income_transaction_table">
         <tread>                    
@@ -12,13 +16,13 @@
         <tbody>
             {% for transaction in incomeTransactions %}
                 <tr>
-                    <td>{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
-                    <td>{{ transaction.amount }}</td>
-                    <td>{{ transaction.description }}</td>
-                    <td>{{ transaction.category }}</td>
+                    <td id="transaction_date_{{loop.index-1}}"">{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
+                    <td id="transaction_amount_{{loop.index-1}}">{{ transaction.amount }}</td>
+                    <td id="transaction_description{{loop.index-1}}">{{ transaction.description }}</td>
+                    <td id="transaction_category{{loop.index-1}}">{{ transaction.category }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-</div>  
+</body>  
