@@ -2,9 +2,10 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="../static/css/transactions.css">
     <div class="transactions_section">
-        <div>            
+        <div class="budgets_navigation_bar">
             <label>Budget:</label> 
-            <select name="budget_list" id="budget_list">                
+            <select name="budget_list" id="budget_list"> 
+                <option value={{current_budget.id}}>{{current_budget.title}}</option>
                 {% for budget in budgetsList %} 
                     {% if current_budget_id == budget.id %}
                         <option value="{{budget.id}}" selected >{{budget.title}}</option>

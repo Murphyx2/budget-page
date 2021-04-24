@@ -91,19 +91,22 @@ def register():
 @app.route('/transactions/', methods=['GET', 'POST'])
 @app.route('/transactions/<budget_id>', methods=['GET','POST'])
 @login_required
-def transactions(budget_id = None):    
+def transactions(budget_id = None):
     #Find all the budgets for this user    
-    budgets = Budgets.objects(user_id=current_user.get_id()).order_by('-date_created')
+    budgets = Budgets.objects(user_id=current_user.get_id(), id__ne=(ObjectId(budget_id))).order_by('-date_created')    
+    print(budgets)
     if request.method == 'GET':
-        if budget_id is not None:
+        if budget_id is not None:            
+            current_budget = Budgets.objects(user_id=current_user.get_id(), id=ObjectId(budget_id)).first()            
             incomeTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="income")
-            expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="expense")    
+            expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="expense")                                     
         else:
+            current_budget = budgets.first()
+            budgets = budgets.filter(id__ne=current_budget.id)
             incomeTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budgets[0].id), type="income")
             expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budgets[0].id), type="expense")    
-
     return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user
-    , budgetsList=budgets, expenseTransactions=expensesTransactions, incomeTransactions=incomeTransactions, current_budget_id = budget_id)
+    , budgetsList=budgets, expenseTransactions=expensesTransactions, incomeTransactions=incomeTransactions, current_budget = current_budget)
 
 @app.route('/incomeTransaction/<budget_id>', methods=['GET', 'POST'])
 @login_required
