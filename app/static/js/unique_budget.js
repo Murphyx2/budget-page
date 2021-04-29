@@ -27,7 +27,6 @@ incomeTable.addEventListener('click', function(event){
     }    
 })
 
-
 function create_newrow(tableName){
     var completeTableName = tableName+'Table'
     var MAX_CELL_NUMBER = 5;
@@ -58,7 +57,6 @@ function create_newrow(tableName){
         if(count === MAX_CELL_NUMBER-1){
             addRemoveButtonCell(newCell, row_id);
         }
-
     }
         
     if(completeTableName==="expenseTable"){
@@ -162,8 +160,7 @@ function toggle_button_visibility(){
         SaveButton.style.display = "none";        
         CancelButton.style.display = "none";                
         location.reload()
-    }        
-    
+    }            
 }
 
 function toggle_remove_buttons_visibility(){

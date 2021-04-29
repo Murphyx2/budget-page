@@ -92,9 +92,8 @@ def register():
 @app.route('/transactions/<budget_id>', methods=['GET','POST'])
 @login_required
 def transactions(budget_id = None):
-    #Find all the budgets for this user    
+    #Find all the budgets by current user  
     budgets = Budgets.objects(user_id=current_user.get_id(), id__ne=(ObjectId(budget_id))).order_by('-date_created')    
-    print(budgets)
     if request.method == 'GET':
         if budget_id is not None:            
             current_budget = Budgets.objects(user_id=current_user.get_id(), id=ObjectId(budget_id)).first()            
@@ -108,17 +107,6 @@ def transactions(budget_id = None):
     return render_template('transactions.html', title='Transactions', description='Register your transactions here', nav=nav, user=current_user
     , budgetsList=budgets, expenseTransactions=expensesTransactions, incomeTransactions=incomeTransactions, current_budget = current_budget)
 
-@app.route('/incomeTransaction/<budget_id>', methods=['GET', 'POST'])
-@login_required
-def incomeTransaction(budget_id = None):
-    incomeTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="income")
-    return render_template('incomeTransaction.html', incomeTransactions=incomeTransactions) 
-
-@app.route('/expenseTransaction/<budget_id>', methods=['GET', 'POST'])
-@login_required
-def expenseTransaction(budget_id = None):
-    expensesTransactions = Transactions.objects(user_id=current_user.get_id(), budget_id=str(budget_id), type="expense") 
-    return render_template('expenseTransaction.html', expenseTransactions=expensesTransactions) 
 
 @app.route('/under_construction')
 def under_construction():

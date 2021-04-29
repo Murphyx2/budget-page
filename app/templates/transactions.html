@@ -2,7 +2,7 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="../static/css/transactions.css">
     <div class="transactions_section">
-        <div class="budgets_navigation_bar">
+        <div class="budgets_selection_bar">
             <label>Budget:</label> 
             <select name="budget_list" id="budget_list"> 
                 <option value={{current_budget.id}}>{{current_budget.title}}</option>
@@ -17,24 +17,30 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="table-space">
-                <h1>Expenses</h1>                
-                    <table class="expense_transaction_table">
-                        <tread>
+                <div id="expense_transaction_table_space" class="table-space">
+                <div>
+                    <h1>Expenses</h1>                             
+                </div>
+                <div id="expense_transaction_edit_bar" class="transaction_edit_table_bar">
+                    <button id="add_expense_transaction" class="btn btn-primary btn-sm">Add</button>
+                    <button id="cancel_expense_transaction" class="btn btn-danger btn-sm">Cancel</button>
+                </div>
+                    <table id="expense_table" class="table table-striped table-bordered expense_transaction_table">
+                        <thead class="thead-dark">
                             <tr>
                                 <th class="table-header-title">Date</th>
                                 <th class="table-header-title">Amount</th>
                                 <th class="table-header-title">Description</th>
                                 <th class="table-header-title">Category</th>
                             </tr>
-                        </tread>
+                        </thead>
                         <tbody>
                             {% for transaction in expenseTransactions %}
-                                <tr>
-                                    <td>{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
-                                    <td>{{ transaction.amount }}</td>
-                                    <td>{{ transaction.description }}</td>
-                                    <td>{{ transaction.category }}</td>
+                                <tr id="expenses_transaction_row_{{loop.index - 1}}">
+                                    <td id="expenses_transaction_date_{{loop.index-1}}" contenteditable="false">{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
+                                    <td id="expenses_transaction_amount_{{loop.index-1}}" contenteditable="false">{{ transaction.amount }}</td>
+                                    <td id="expenses_transaction_description_{{loop.index-1}}" contenteditable="false">{{ transaction.description }}</td>
+                                    <td id="expenses_transaction_category_{{loop.index-1}}" contenteditable="false">{{ transaction.category }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -42,32 +48,34 @@
                 </div>
             </div>
             <div class="col">
-                <div class="table-space">
-                <h1>Income</h1>                
-                    <table class="income_transaction_table">
-                        <tread>                    
+                <div id="income_transaction_table_space" class="table-space">
+                <h1>Income</h1>
+                <div id="income_transaction_edit_bar" class="transaction_edit_table_bar">
+                    <button id="add_income_transaction" class="btn btn-primary btn-sm">Add</button>
+                    <button id="cancel_income_transaction" class="btn btn-danger btn-sm">Cancel</button>
+                </div>  
+                    <table id="income_table" class="table table-striped table-bordered income_transaction_table">
+                        <thead class="thead-dark">                    
                             <tr>
                                 <th class="table-header-title">Date</th>
                                 <th class="table-header-title">Amount</th>
                                 <th class="table-header-title">Description</th>
                                 <th class="table-header-title">Category</th>
                             </tr>
-                        </tread>
+                        </thead>
                         <tbody>
                             {% for transaction in incomeTransactions %}
-                                <tr>
-                                    <td id="transaction_date_{{loop.index-1}}"">{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
-                                    <td id="transaction_amount_{{loop.index-1}}">{{ transaction.amount }}</td>
-                                    <td id="transaction_description{{loop.index-1}}">{{ transaction.description }}</td>
-                                    <td id="transaction_category{{loop.index-1}}">{{ transaction.category }}</td>
+                                <tr id="income_transaction_row_{{loop.index - 1}}">
+                                    <td id="income_transaction_date_{{loop.index-1}}">{{ transaction.date_created.strftime("%d-%m-%Y") }}</td>
+                                    <td id="income_transaction_amount_{{loop.index-1}}">{{ transaction.amount }}</td>
+                                    <td id="income_transaction_description{{loop.index-1}}">{{ transaction.description }}</td>
+                                    <td id="income_transaction_category{{loop.index-1}}">{{ transaction.category }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
-            <!--<iframe id="expenseIframe" src="/expenseTransaction/{{ budgetsList[0].id }}" class="expense_iframe"></iframe>
-            <iframe id="incomeIframe" src="/incomeTransaction/{{ budgetsList[0].id }}" class="income_iframe"></iframe>            -->
         </div>
     <script type='text/javascript' src='../static/js/transactions.js'></script>
 {% endblock %}

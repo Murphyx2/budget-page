@@ -56,8 +56,8 @@
                 <div class="row">
                     <div class="col">   
                         <div class="row">
-                        <table class="unique-budget-table" id="expenseTable"> 
-                            <tread>
+                        <table class="unique-budget-table table" id="expenseTable"> 
+                            <thead>
                                 <tr class="table-header"> 
                                     <th class="table-header-title" colspan="4">Expense</th>                                    
                                 </tr>     
@@ -71,7 +71,7 @@
                                             </a>                                        
                                     </th>
                                 </tr>
-                            </tread>   
+                            </thead>   
                             <tbody>
                                 {% for expense in budget.budget_items.expense %}
                                     <tr id="expenseRow_{{loop.index - 1}}"> 
@@ -92,8 +92,8 @@
                     </div> 
                     <div class="col">          
                         <div class="row">
-                        <table class="unique-budget-table" id="incomeTable"> 
-                            <tread>
+                        <table class="unique-budget-table table" id="incomeTable"> 
+                            <thead>
                                 <tr class="table-header"> 
                                     <th class="table-header-title" colspan="4">Income</th>                                     
                                 </tr>     
@@ -105,7 +105,7 @@
                                             <a role="button" id="incomeAddButton" class="btn float-right addbutton" onclick="create_newrow('income')"><i class="fas fa-plus addbutton-icon"></i></a>                                        
                                     </th>
                                 </tr>  
-                            </tread>   
+                            </thead>   
                             <tbody>
                                 {% for income in budget.budget_items.income %}
                                     <tr id="incomeRow_{{loop.index - 1}}">
