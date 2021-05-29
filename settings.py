@@ -17,5 +17,5 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     MONGODB_SETTINGS = {
         'db':'budget-page',
-        'host':'mongodb://127.0.0.1:27017/budget-page'
+        'host':'mongodb://localhost:27017/budget-page'
     }
